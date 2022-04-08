@@ -4,11 +4,17 @@ import './CourseCard.css';
 
 import { Context } from "../../index.js";
 
-import { fetchCourses, fetchCourse, deleteCourse, updateCourse, createCourse } from "../../HTTP/coursesAPI.js";
-import { createChoiseCourse } from "../../HTTP/choiseCoursesAPI.js";
+import {
+  fetchCourses,
+  fetchCourse,
+  deleteCourse,
+  updateCourse,
+  createCourse,
+  createChoiseCourse
+} from "../../HTTP/coursesAPI.js";
 
 import { Col, Card, OverlayTrigger, Popover } from 'react-bootstrap';
-import { AddCourse } from "../../Components";
+import AddCourse from "../Header/AddCourse";
 
 import edit from '../../Image/card-icons/edit.svg';
 import star from '../../Image/card-icons/star.svg';
@@ -16,10 +22,13 @@ import remove from '../../Image/card-icons/delete.svg';
 import more from '../../Image/card-icons/more.svg';
 import share from '../../Image/card-icons/share.svg';
 import comment from '../../Image/card-icons/comment.svg';
+import { CARD_ROUTE, SERVER_LINK } from "../../Utils/consts";
+import { useHistory } from "react-router";
 
 const CourseCard = observer((props) => {
   const { user } = useContext(Context);
   const { card } = useContext(Context);
+  const history = useHistory()
   const [lgShow, setLgShow] = useState(false);
   const [dataCourse, setDataCourse] = useState({});
 
@@ -43,12 +52,19 @@ const CourseCard = observer((props) => {
     console.log(`Перерисовка страницы`);
   }
 
+  const copyLink = () => {
+    let id = props.id
+    navigator.clipboard.writeText(SERVER_LINK + CARD_ROUTE + '/' + id);
+  }
+
   return (
-    <Col xs={12} sm={6} lg={4} className="mb-4">
+    <Col xs={12} sm={6} lg={4} className="mb-4"
+    >
       <Card className="content-card" style={{ backgroundColor: realFone }}>
         <Card.Header className="content-card-header d-flex
 justify-content-between align-items-center">
-          {props.id}) {props.author}
+          {props.id}) {' '}
+          {props.author}
           {
             user.isAuth && <div className="card__buttons w-100 d-flex justify-content-between">
               <button className="card__button remove" type="button">
@@ -74,10 +90,12 @@ justify-content-between align-items-center">
                       </button>
                       <AddCourse show={lgShow} onHide={() => setLgShow(false)}
 
-                        key={dataCourse.course_id} id={dataCourse.course_id} author={dataCourse.author} name={dataCourse.name} description={dataCourse.description} image={dataCourse.image} course_url={dataCourse.course_url}
+                        key={dataCourse.id} id={dataCourse.id} author={dataCourse.author} name={dataCourse.name} description={dataCourse.description} image={dataCourse.image} course_url={dataCourse.course_url}
                         fone={dataCourse.fone}
                       />
-                      <button className="card__button share" type="button">
+                      <button className="card__button share" type="button"
+                        onClick={copyLink}
+                      >
                         <img src={share} alt="share" />
                       </button>
                       <button className="card__button comment" type="button">
@@ -93,7 +111,10 @@ justify-content-between align-items-center">
           }
         </Card.Header>
 
-        <Card.Img src={imageUrl} alt="Изображение курса" />
+        <Card.Img src={imageUrl} alt="Изображение курса"
+          onClick={() => history.push(CARD_ROUTE + '/' + props.id)}
+          style={{ cursor: "pointer" }}
+        />
         {/*             <input type="checkbox" className="read-more-checker" id={`read-more-checker-${props.id}`} />*/}
         <Card.Body>
           <Card.Title className="mb-2">{props.name}</Card.Title>

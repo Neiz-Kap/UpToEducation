@@ -6,6 +6,7 @@ const Users = sequelize.define('users', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   email: { type: DataTypes.STRING, unique: true },
   password: { type: DataTypes.STRING },
+  role: { type: DataTypes.STRING, defaultValue: "USER" },
   theme: { type: DataTypes.STRING, defaultValue: "dark" },
 });
 
@@ -16,7 +17,10 @@ const Courses = sequelize.define('courses', {
   description: { type: DataTypes.STRING, allowNull: false },
   course_url: { type: DataTypes.STRING, allowNull: false },
   image_url: { type: DataTypes.STRING },
+  fone: { type: DataTypes.STRING },
   // date_dev: { type: DataTypes.DATA }
+  // rating
+  // real_price
 });
 
 const Tags = sequelize.define('tags', {
@@ -30,7 +34,7 @@ const Tags = sequelize.define('tags', {
 // используя внешние ключи
 const Choise = sequelize.define('choise', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  // user_id
+  // userId
 });
 
 const ChoiseCourses = sequelize.define('choise_courses', {
@@ -46,7 +50,7 @@ const Tag = sequelize.define('tag',
   });
 
 const TagsCourse = sequelize.define('tags_course', {
-  tc_id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   // id
   // course_id
 });

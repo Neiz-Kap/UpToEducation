@@ -6,8 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
 import App from './App';
-import UserStore from "./Store/UserStore.js";
-import CardStore from "./Store/CardStore.js";
+import UserStore from "./Store/UserStore";
+import CardStore from "./Store/CardStore";
 
 export const Context = createContext(null);
 
@@ -21,3 +21,4 @@ ReactDOM.render(
   </Context.Provider>,
   document.getElementById('root')
 );
+

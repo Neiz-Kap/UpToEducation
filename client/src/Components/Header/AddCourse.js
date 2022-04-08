@@ -1,10 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import "./Header.css";
 
 import { Context } from "../../index.js";
 import { CATALOG_ROUTE } from "../../Utils/consts.js"
-import { createCourse, fetchCourses } from "../../HTTP/coursesAPI.js"
+import { createCourse, fetchCourses, fetchOccupations } from "../../HTTP/coursesAPI.js"
 
 import { Card, Button, Modal, Row, Col, Form } from 'react-bootstrap';
 
@@ -17,9 +17,14 @@ const AddCourse = ({ show, onHide }) => {
   const [name, setName] = useState('');
   const [urlCourse, setUrlCourse] = useState('');
   const [description, setDescription] = useState('');
+  const [occupation, setOccupation] = useState('');
 
   const [image, setImage] = useState(null);
   const imageRef = React.useRef(null);
+
+  useEffect(() => {
+    fetchOccupations().then(data => card.setOccupations(data))
+  }, [])
 
   const useDisplayImage = () => {
     const [result, setResult] = React.useState("");
@@ -45,6 +50,8 @@ const AddCourse = ({ show, onHide }) => {
     formData.append('course_url', urlCourse);
     formData.append('fone', colorCard);
     formData.append('image', image);
+    // formData.append('courseAuthorId', card.selectedAuthor.id)
+    formData.append('occupation', occupation)
 
     createCourse(formData).then((data) => {
       fetchCourses().then(data => card.setCardData(data.rows));
@@ -115,6 +122,18 @@ const AddCourse = ({ show, onHide }) => {
                 value={description}
                 onChange={e => setDescription(e.target.value)}
               />
+              <Form.Control
+                className="card-form"
+                list="searchList"
+                placeholder="Enter occupation" name="description"
+                value={occupation}
+                onChange={e => setOccupation(e.target.value)}
+              />
+              <datalist id="searchList">
+                {card.occupations.map((item, index) => {
+                  <option key={index}>{item}</option>
+                })}
+              </datalist>
 
               <Button className="mx-auto d-block"
                 onClick={addCourse}

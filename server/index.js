@@ -28,9 +28,9 @@ app.get('/', (req, res) => {
 
 const start = async () => {
   try {
-    // await sequelize.drop();
     await sequelize.authenticate();
     await sequelize.sync({ alter: true }); // синхронизация
+    // await sequelize.drop();
     app.listen(PORT, () => console.log(`Server started: ${PORT}`));
   } catch (e) {
     console.log(e);
@@ -39,10 +39,7 @@ const start = async () => {
 
 start();
 
-// console.log(`Моё первое знакомство с NodeJS. Верю, что это продёт очень весело :) \n07.11.20`);
-// console.log(`Первый день серьёзного Backenda, а не устаревшего hbs \n `);
-
-//  for dev:
+//  for dev in Linux:
 		// "dev": "npm run kill && nodemon --delay 500ms index.js",
 		// "kill": "kill -9 $(lsof -i : 6789) &>/dev/null | exit 0"
 

@@ -5,8 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon index.js",
-    "dev": "nodemon --delay 500ms index.js",
-    "kill": "kill -9 $(sudo lsof -t -i : 8888) &>/dev/null | exit 0"
+    "dev": "nodemon index.js"
   },
   "dependencies": {
     "@babel/cli": "^7.14.3",

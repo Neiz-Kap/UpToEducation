@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { Context } from "../../index.js";
 import { observer } from "mobx-react-lite";
 import "./Header.css";
 
@@ -6,7 +7,7 @@ import { Container, Form, Button, Navbar, InputGroup } from "react-bootstrap";
 import Auth from './Auth.js';
 import AddCourse from './AddCourse.js';
 
-import { Context } from "../../index.js";
+import { useLogOut } from '../../Utils'
 
 import mainLogo from "../../Image/header/logo.svg";
 import search from "../../Image/header/search.svg";
@@ -36,15 +37,20 @@ const Header = observer(() => {
                 </InputGroup.Append>
               </InputGroup>
             </Form>
-            {user.isAuth === false ? (
+            {!(user.isAuth) ?
               <Button variant="primary" onClick={() => setAuthModalShow(true)}>
                 Auth
               </Button>
-            ) : (
-              <button className="header-add-course" onClick={() => setLgShow(true)}>
-                <img src={addCourse} alt="addCourse" />
-              </button>
-            )}
+              :
+              <>
+                <Button variant="primary" onClick={useLogOut()}>
+                  Выйти
+                </Button>
+                <button className="header-add-course" onClick={() => setLgShow(true)}>
+                  <img src={addCourse} alt="addCourse" />
+                </button>
+              </>
+            }
           </Navbar.Collapse>
 
           <AddCourse show={lgShow} onHide={() => setLgShow(false)} />
