@@ -1,22 +1,21 @@
-import React, { useContext } from "react"
-import { Switch, Route, Redirect } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom'
 import { Container } from 'react-bootstrap';
-import { authRoutes, publicRoutes } from '../routes.js';
-import { CATALOG_ROUTE } from '../Utils/consts.js';
-import { Context } from "../index.js";
+import { authRoutes, publicRoutes } from "../routes";
+import { CATALOG_ROUTE } from "../Utils/consts";
+import { Context } from "../index";
 import { observer } from "mobx-react-lite";
-// import CatalogOfCourses from '../Pages/CatalogOfCourses/CatalogOfCourses.js';
 
 const AppRouter = observer(() => {
   const { user } = useContext(Context);
+
   return (
     <Container>
       <Switch>
         {user.isAuth && authRoutes.map(({ path, Component }) =>
-          <Route key={path} path={path} component={Component} />)}
-
+          <Route key={path} path={path} component={Component} exact />)}
         {publicRoutes.map(({ path, Component }) =>
-          <Route key={path} path={path} component={Component} />
+          <Route key={path} path={path} component={Component} exact />
         )}
         <Redirect to={CATALOG_ROUTE} />
       </Switch>

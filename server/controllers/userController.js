@@ -1,7 +1,7 @@
 const ApiError = require('../error/ApiError');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { Users } = require('../models/models');
+const { User } = require('../models/models');
 
 const generateJwt = (id, email, role) => {
   return jwt.sign(
@@ -19,13 +19,13 @@ class UserController {
       return next(ApiError.badRequest('Некорректный email или password'));
     }
 
-    const candidate = await Users.findOne({ where: { email } });
+    const candidate = await User.findOne({ where: { email } });
     if (candidate) {
       return next(ApiError.badRequest('Пользователь с таким email уже существует '));
     }
     else {
       const hashPassword = await bcrypt.hash(password, 5);
-      const user = await Users.create({ email, role, password: hashPassword });
+      const user = await User.create({ email, role, password: hashPassword });
       //             const choise = await Choise.create({userId: user.id});
 
       const token = generateJwt(user.id, user.email, user.role);
@@ -36,7 +36,7 @@ class UserController {
   async login(req, res, next) {
     const { email, password } = req.body;
     console.log(email + ':' + password);
-    const user = await Users.findOne({ where: { email } });
+    const user = await User.findOne({ where: { email } });
     if (!user) {
       return next(ApiError.forbidden('Пользователь не найден!'))
     }

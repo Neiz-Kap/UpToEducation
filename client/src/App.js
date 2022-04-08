@@ -1,47 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
-import { observer } from "mobx-react-lite";
-
-import { Context } from "./index";
-import { Spinner } from "react-bootstrap";
-import { BrowserRouter } from 'react-router-dom';
-
-// import { Header, NavBar, AppRoutes } from './Components';
-import Header from './Components/Header/Header';
+import React, { useContext, useEffect, useState } from 'react';
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "./Components/AppRoutes";
+import Header from "./Components/Header/Header";
 import NavBar from './Components/NavBar/NavBar';
-import AppRoutes from './Components/AppRoutes';
+import { observer } from "mobx-react-lite";
+import { Context } from "./index";
 import { check } from "./HTTP/userAPI";
+import { Spinner } from "react-bootstrap";
 
 const App = observer(() => {
-  const { user } = useContext(Context);
-  const [loading, setLoading] = useState(true);
-  const [isLoading, setLoadingPage] = useState(true);
+  const { user } = useContext(Context)
+  const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
-    console.log(`До then: ${isLoading}`)
-    // try {
-    //   let data = check();
-    //   user.setUser(data)
-    //   user.setIsAuth(true)
-    //   console.log(`data: ${data} ${JSON.stringify(data)}`)
-    // }
-    // finally {
-    //   setLoading(false)
-    //   setLoading(false)
-    //   console.log(`finally сработал!: ${loading}`)
-
-    // }
     check().then(data => {
-      console.log(data)
       user.setUser(data)
       user.setIsAuth(true)
-    }, err => {
-      console.log(`err`, err)
-    })
-      // setLoadingPage(false)
-      // console.log(`После catch!: ${isLoading}`)
-      .finally(() => {
-        setLoadingPage(false)
-      })
+    }).finally(() => setLoading(false))
   }, [])
 
   if (isLoading) {
@@ -55,7 +30,6 @@ const App = observer(() => {
 
   return (
     <BrowserRouter>
-      <div>ПРОРИСОВКА</div>
       <Header />
       <NavBar />
       <main className="c">
@@ -63,6 +37,6 @@ const App = observer(() => {
       </main>
     </BrowserRouter>
   );
-})
+});
 
 export default App;
