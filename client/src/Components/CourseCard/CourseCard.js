@@ -22,7 +22,7 @@ import remove from '../../Image/card-icons/delete.svg';
 import more from '../../Image/card-icons/more.svg';
 import share from '../../Image/card-icons/share.svg';
 import comment from '../../Image/card-icons/comment.svg';
-import { CARD_ROUTE, SERVER_LINK } from "../../Utils/consts";
+import { COURSE_ROUTE, SERVER_LINK } from "../../Utils/consts";
 import { useHistory } from "react-router";
 
 const CourseCard = observer((props) => {
@@ -54,7 +54,7 @@ const CourseCard = observer((props) => {
 
   const copyLink = () => {
     let id = props.id
-    navigator.clipboard.writeText(SERVER_LINK + CARD_ROUTE + '/' + id);
+    navigator.clipboard.writeText(SERVER_LINK + COURSE_ROUTE + '/' + id);
   }
 
   return (
@@ -112,7 +112,7 @@ justify-content-between align-items-center">
         </Card.Header>
 
         <Card.Img src={imageUrl} alt="Изображение курса"
-          onClick={() => history.push(CARD_ROUTE + '/' + props.id)}
+          onClick={() => history.push(COURSE_ROUTE + '/' + props.id)}
           style={{ cursor: "pointer" }}
         />
         {/*             <input type="checkbox" className="read-more-checker" id={`read-more-checker-${props.id}`} />*/}
@@ -128,6 +128,9 @@ justify-content-between align-items-center">
           </Card.Text>
           {/* <div className="card-body-bottom"></div>*/}
         </Card.Body>
+        <Card.Button
+          onClick={() => history.push(COURSE_ROUTE + '/' + props.id)}
+        >Подробнее</Card.Button>
         {/* <label htmlFor={`read-more-checker-${props.id}`} className="read-more-button"></label>*/}
       </Card>
     </Col>

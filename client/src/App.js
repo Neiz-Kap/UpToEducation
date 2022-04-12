@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { BrowserRouter } from "react-router-dom";
-import AppRoutes from "./Components/AppRoutes";
-import Header from "./Components/Header/Header";
-import NavBar from './Components/NavBar/NavBar';
+import {
+  AppRoutes,
+  Header,
+  SideBar
+} from "./Components";
 import { observer } from "mobx-react-lite";
 import { Context } from "./index";
 import { check } from "./HTTP/userAPI";
@@ -31,7 +33,7 @@ const App = observer(() => {
   return (
     <BrowserRouter>
       <Header />
-      <NavBar />
+      <SideBar />
       <main className="c">
         <AppRoutes />
       </main>

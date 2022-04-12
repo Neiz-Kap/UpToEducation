@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 
-export default class DeviceStore {
+export default class CardStore {
   constructor() {
     this._occupations = []
     this._authors = []

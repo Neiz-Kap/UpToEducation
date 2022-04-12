@@ -10,7 +10,7 @@ const AppRouter = observer(() => {
   const { user } = useContext(Context);
 
   return (
-    <Container>
+    <Container className="mt-3">
       <Switch>
         {user.isAuth && authRoutes.map(({ path, Component }) =>
           <Route key={path} path={path} component={Component} exact />)}

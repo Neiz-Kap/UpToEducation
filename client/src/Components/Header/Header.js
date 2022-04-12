@@ -12,6 +12,7 @@ import { useLogOut } from '../../Utils'
 import mainLogo from "../../Image/header/logo.svg";
 import search from "../../Image/header/search.svg";
 import addCourse from "../../Image/header/add.svg";
+import { CATALOG_ROUTE } from "../../Utils/consts.js";
 
 const Header = observer(() => {
   const [authModalShow, setAuthModalShow] = useState(false);
@@ -21,7 +22,7 @@ const Header = observer(() => {
     <header className="header">
       <Container className="fixed-top p-2">
         <Navbar expand="lg" className="justify-content-between">
-          <Navbar.Brand href="/catalog" className="text-white">
+          <Navbar.Brand href={CATALOG_ROUTE} className="text-white">
             <img alt="Logo" src={mainLogo} width="30" height="30" className="d-inline-block align-top" /> UpToEducation
           </Navbar.Brand>
 
@@ -30,11 +31,9 @@ const Header = observer(() => {
             <Form inline>
               <InputGroup>
                 <Form.Control type="text" placeholder="Поиск курсов на сайте" className="h-auto" />
-                <InputGroup.Append>
-                  <Button>
-                    <img src={search} alt="search" />
-                  </Button>
-                </InputGroup.Append>
+                <Button>
+                  <img src={search} alt="search" />
+                </Button>
               </InputGroup>
             </Form>
             {!(user.isAuth) ?
