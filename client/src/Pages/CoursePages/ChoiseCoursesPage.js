@@ -16,8 +16,8 @@ const ChoiseCoursesPage = observer((props) => {
   console.log(`card.choiseCardData: ${card.choiseCardData}`)
 
   return (
-    <Container>
-      <h1>Избранные курсы из каталога</h1>
+    <section>
+      <h2>Избранные курсы из каталога</h2>
       <Row className="content content--sorting-list g-2">
         {card.choiseCardData.map(({ course_id, author, name, description, image, course_url, fone }) =>
           <CourseCard key={course_id} id={course_id} author={author} name={name} description={description} image={image} course_url={course_url}
@@ -26,7 +26,7 @@ const ChoiseCoursesPage = observer((props) => {
         )}
         <FilterAside />
       </Row>
-    </Container>
+    </section>
   );
 });
 

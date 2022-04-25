@@ -30,7 +30,7 @@ export const publicRoutes = [
     Component: CourseCatalogPage
   },
   {
-    path: COURSE_ROUTE + '/:id',
+    path: COURSE_ROUTE + ':id',
     Component: CoursePage,
   },
 ]

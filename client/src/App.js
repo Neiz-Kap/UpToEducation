@@ -8,7 +8,7 @@ import {
 import { observer } from "mobx-react-lite";
 import { Context } from "./index";
 import { check } from "./HTTP/userAPI";
-import { Spinner } from "react-bootstrap";
+import loader from "./Assets/icons/loader.svg";
 
 const App = observer(() => {
   const { user } = useContext(Context)
@@ -24,16 +24,15 @@ const App = observer(() => {
   if (isLoading) {
     return (
       <div className="spinner-block d-flex justify-content-center align-items-center p-5">
-        <strong className="mr-2">Loading...</strong>
-        <Spinner animation="border" variant="info" role="status" aria-hidden="true" />
+        <img className='svgLoader' src={loader} alt="Loading..." />
       </div>
     )
   }
 
   return (
     <BrowserRouter>
-      <Header />
       <SideBar />
+      <Header />
       <main className="c">
         <AppRoutes />
       </main>

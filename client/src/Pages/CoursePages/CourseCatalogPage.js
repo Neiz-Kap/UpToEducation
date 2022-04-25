@@ -19,9 +19,10 @@ const CourseCatalogPage = observer((props) => {
   }, [])
 
   return (
-    <Container>
+    <section>
       {/* <TypeBar />
       <BrandBar /> */}
+      {/* может 4 карточки, если Container fluid? */}
       <h1>Каталог курсов</h1>
       <Row className="content content--sorting-list g-2">
         {card.cardData.map(({ id, author, name, description, image, course_url, fone }) =>
@@ -31,7 +32,7 @@ const CourseCatalogPage = observer((props) => {
         )}
         <FilterAside />
       </Row>
-    </Container>
+    </section>
   );
 })
 

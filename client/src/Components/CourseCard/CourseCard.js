@@ -16,14 +16,18 @@ import {
 import { Col, Card, OverlayTrigger, Popover } from 'react-bootstrap';
 import AddCourse from "../Header/AddCourse";
 
-import edit from '../../Image/card-icons/edit.svg';
-import star from '../../Image/card-icons/star.svg';
-import remove from '../../Image/card-icons/delete.svg';
-import more from '../../Image/card-icons/more.svg';
-import share from '../../Image/card-icons/share.svg';
-import comment from '../../Image/card-icons/comment.svg';
+import edit from '../../Assets/cardIcons/edit.svg';
+import star from '../../Assets/cardIcons/star.svg';
+import remove from '../../Assets/cardIcons/delete.svg';
+import more from '../../Assets/cardIcons/more.svg';
+import share from '../../Assets/cardIcons/share.svg';
+import comment from '../../Assets/cardIcons/comment.svg';
 import { COURSE_ROUTE, SERVER_LINK } from "../../Utils/consts";
 import { useHistory } from "react-router";
+
+
+// Альтернативный вариант карточки
+// https://www.youtube.com/channel/UCbwXnUipZsLfUckBPsC7Jog/community?lb=UgkxeXByOWLPygBXbtF7-J98QEdiOPCR4hep
 
 const CourseCard = observer((props) => {
   const { user } = useContext(Context);
@@ -54,7 +58,7 @@ const CourseCard = observer((props) => {
 
   const copyLink = () => {
     let id = props.id
-    navigator.clipboard.writeText(SERVER_LINK + COURSE_ROUTE + '/' + id);
+    navigator.clipboard.writeText(SERVER_LINK + COURSE_ROUTE + id);
   }
 
   return (
@@ -112,7 +116,7 @@ justify-content-between align-items-center">
         </Card.Header>
 
         <Card.Img src={imageUrl} alt="Изображение курса"
-          onClick={() => history.push(COURSE_ROUTE + '/' + props.id)}
+          onClick={() => history.push(COURSE_ROUTE + props.id)}
           style={{ cursor: "pointer" }}
         />
         {/*             <input type="checkbox" className="read-more-checker" id={`read-more-checker-${props.id}`} />*/}
@@ -129,7 +133,7 @@ justify-content-between align-items-center">
           {/* <div className="card-body-bottom"></div>*/}
         </Card.Body>
         <Card.Button
-          onClick={() => history.push(COURSE_ROUTE + '/' + props.id)}
+          onClick={() => history.push(COURSE_ROUTE + props.id)}
         >Подробнее</Card.Button>
         {/* <label htmlFor={`read-more-checker-${props.id}`} className="read-more-button"></label>*/}
       </Card>

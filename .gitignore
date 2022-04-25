@@ -16,6 +16,9 @@
 
 /client/.eslintcache
 
+/client/notes.txt
+/client/src/Assets/example
+
 /client/npm-debug.log*
 /client/yarn-debug.log*
 /client/yarn-error.log*

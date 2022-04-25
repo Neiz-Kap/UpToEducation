@@ -1,15 +1,17 @@
 /*@import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@400;700&display=swap');*/
 @import url('https://unicons.iconscout.com/release/v2.1.9/css/unicons.css');
+
 /* -------
     Объявление переменных
 ------- */
 
+
 :root {
   --color-input-search: #F3F1F1;
-  --main-color-content: #192534;
-  /*     --main-color-background: #1F2029; */
+  --content-color: #192534;
+  /*     --bg: #1F2029; */
   /* #2a2b38 */
-  --main-color-background: #0D1721;
+  --bg: #0D1721;
 }
 
 * {
@@ -19,8 +21,7 @@
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* color: #A79797; */
-  color: #ffffff;
+  color: var(--bs-white);
 }
 
 body * {
@@ -28,7 +29,7 @@ body * {
 }
 
 body, .offcanvas {
-  background-color: var(--main-color-background);
+  background-color: var(--bg);
 }
 
 code {
@@ -39,6 +40,8 @@ code {
 /*-----
     fixed bootstrap
 -----*/
+
+
 .modal-content {
   background-color: transparent;
 }
@@ -87,14 +90,13 @@ code {
 }
 
 li.nav-item {
-  color: #FFF;
+  color: var(--bs-white);
   font-weight: 600;
-
-
 }
 
 li.nav-item a {
   color: inherit;
+  text-decoration: none;
 }
 
 .arrow {
@@ -113,7 +115,7 @@ li.nav-item a {
   line-height: 35px;
   text-align: left;
   color: #ffeba7;
-  background-color: var(--main-color-content);
+  background-color: var(--content-color);
   border-radius: 50%;
   position: absolute;
   top: 50%;
@@ -128,16 +130,24 @@ li.nav-item a {
     Ограничивающая оболочка
 ------- */
 
-.fixed-container {
-  max-width: 1366px;
+.fixed_container {
+  max-width: calc(100% - 40px - 55px);
   width: 100%;
   padding: 0 20px;
   margin: 0 auto;
 }
 
+.content__container {
+  margin-left: 80px;
+}
 
 /* spinner */
 .spinner-block {
-  width: 100vw;
   height: 100vh;
+}
+
+.svgLoader {
+  width: 80px;
+  height: 80px;
+  z-index: 1001;
 }

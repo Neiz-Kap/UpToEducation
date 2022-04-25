@@ -1,0 +1,117 @@
+/* .sidebar_hamburger__img {
+  width: 50px;
+  transition: .5s;
+} */
+
+/* .sidebar_hamburger__img:hover,
+.offcanvas-header .btn-close:hover {
+  transform: rotate(-180deg);
+  transition: .5s;
+} */
+
+/* btn-close */
+/* .offcanvas-header .btn-close {
+  margin: 0 0 0 auto;
+  opacity: 1;
+  background-color: var(--bs-white);
+  border-radius: 0.5rem;
+  transition: .5s;
+} */
+
+.navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 500px;
+  max-width: 55px;
+  width: 100%;
+  /* width: 70px;
+  border-left: 10px solid var(--bg); */
+  background-color: var(--bg);
+  box-shadow: 10px 0 0 var(--bs-blue);
+  overflow-x: hidden;
+  transition: max-width .5s;
+  z-index: 1031;
+}
+
+.navigation:hover {
+  max-width: 300px;
+}
+
+.sidebar__nav {
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 12px 0 0 5px;
+}
+
+/* li */
+.sidebar_list__item {
+  width: 100%;
+  /* padding: 10px;
+  margin-bottom: 10px; */
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.sidebar_list__item.active {
+  background-color: var(--bs-blue);
+}
+
+.sidebar_list__item:hover {
+  /* background-color: var(--bs-blue); */
+}
+
+/* a */
+.sidebar_list__link {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar_list__item.active .sidebar_list__link::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  box-shadow: 15px 15px 0 var(--bs-blue);
+
+}
+
+.sidebar_list__item.active .sidebar_list__link::after {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  box-shadow: 15px -15px 0 var(--bs-blue);
+}
+
+/* img */
+.sidebar_list__icon {
+  min-width: 45px;
+  max-width: 45px;
+  height: 45px;
+  padding: 5px;
+  /* line-height: 45px; */
+  text-align: center;
+  z-index: 1;
+}
+
+/* p */
+.sidebar_list__title {
+  width: 100%;
+  margin-bottom: 0;
+  padding-left: 10px;
+  height: 30px;
+  line-height: 30px;
+  white-space: nowrap;
+}
+
+Remake loader in App.js, remake order and styles of header elements; make Sidebar; edit links in consts and images address; add h2 in pages, add more links, add icons;

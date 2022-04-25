@@ -33,6 +33,8 @@ const Auth = observer((props) => {
     }
 
   }
+// https://www.youtube.com/watch?v=pEvISNLoYAk&t=80s
+
   return (
     <Modal {...props} className="auth__modal" aria-labelledby="contained-modal-title-vcenter">
       <div className="section">
@@ -61,7 +63,8 @@ const Auth = observer((props) => {
                           <h4 className="mb-4 pb-3">Log In</h4>
                           <Form>
                             <Form.Group className="form-group">
-                              <input type="email"
+                              <Form.Control
+                                type="email"
                                 name="email"
                                 className="form-style"
                                 placeholder="Your Email"
@@ -75,7 +78,8 @@ const Auth = observer((props) => {
                             </Form.Group>
 
                             <Form.Group className="form-group mt-2">
-                              <input type="password"
+                              <Form.Control
+                                type="password"
                                 name="password"
                                 className="form-style"
                                 placeholder="Your Password"
@@ -102,8 +106,9 @@ const Auth = observer((props) => {
                         <div className="section text-center">
                           <h4 className="mb-4 pb-3">Sign Up</h4>
 
-                          <Form.Group className="mt-2">
-                            <input type="email"
+                          <Form.Group className="form-group mt-2">
+                            <Form.Control
+                              type="email"
                               name="email"
                               className="form-style" placeholder="Your Email" id="logemail"
                               autoComplete="off"
@@ -113,11 +118,14 @@ const Auth = observer((props) => {
                             />
                             <i className="input-icon uil uil-at"></i>
                           </Form.Group>
-                          <Form.Group className="mt-2">
-                            <input type="password" name="password"
-                              className="form-style" placeholder="Your Password" id="logpass"
+                          <Form.Group className="form-group mt-2">
+                            <Form.Control
+                              type="password"
+                              name="password"
+                              className="form-style"
+                              placeholder="Your Password"
+                              id="logpass"
                               autoComplete="off"
-
                               value={password}
                               onChange={e => setPassword(e.target.value)}
                             />
@@ -131,15 +139,11 @@ const Auth = observer((props) => {
                         </div>
                       </div>
                     </div>
-
                   </div>
-
                 </div>
-
               </div>
             </div>
           </Row>
-
         </Container>
       </div>
     </Modal>
