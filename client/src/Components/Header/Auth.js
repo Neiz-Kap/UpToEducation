@@ -1,27 +1,33 @@
-import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { observer } from "mobx-react-lite";
-import { Modal, Container, Row, Form, Button } from 'react-bootstrap';
+import { Modal, Container, Row, Form, Button } from "react-bootstrap";
+import EmailInput from "../Input/EmailInput.js";
+
 import "./Header.css";
 import { Context } from "../../index.js";
 import { registration, login } from "../../HTTP/userAPI";
-import { CATALOG_ROUTE } from "../../Utils/consts.js"
-
+import { CATALOG_ROUTE } from "../../Utils/consts.js";
 
 const Auth = observer((props) => {
   const { user } = useContext(Context);
   const history = useHistory();
+
   const [isLogin, setIsLogin] = useState(true);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+
+  const [password, setPassword] = useState("");
 
   const click = async () => {
     try {
-      if (isLogin) {
-        await login(email, password);
-      }
-      else {
-        await registration(email, password)
+      if (!user.email) {
+        alert(`Введите корректный email!`);
+        return;
+      } else {
+        if (isLogin) {
+          await login(user.email, password);
+        } else {
+          await registration(user.email, password);
+        }
       }
 
       user.setUser(user);
@@ -29,14 +35,16 @@ const Auth = observer((props) => {
       history.push(CATALOG_ROUTE);
       props.onHide(false);
     } catch (e) {
-      alert(e.responce.data.message)
+      alert(e.responce.data.message);
     }
-
-  }
-// https://www.youtube.com/watch?v=pEvISNLoYAk&t=80s
+  };
 
   return (
-    <Modal {...props} className="auth__modal" aria-labelledby="contained-modal-title-vcenter">
+    <Modal
+      {...props}
+      className="auth__modal"
+      aria-labelledby="contained-modal-title-vcenter"
+    >
       <div className="section">
         <Container>
           <Row className="full-height justify-content-center">
@@ -51,7 +59,7 @@ const Auth = observer((props) => {
                   type="checkbox"
                   id="reg-log"
                   name="reg-log"
-                  onChange={e => setIsLogin(!isLogin)}
+                  onChange={(e) => setIsLogin(!isLogin)}
                 />
                 <label htmlFor="reg-log"></label>
                 <div className="card-3d-wrap mx-auto mt-4">
@@ -59,23 +67,9 @@ const Auth = observer((props) => {
                     <div className="card-front">
                       <div className="center-wrap">
                         <div className="section text-center">
-
                           <h4 className="mb-4 pb-3">Log In</h4>
                           <Form>
-                            <Form.Group className="form-group">
-                              <Form.Control
-                                type="email"
-                                name="email"
-                                className="form-style"
-                                placeholder="Your Email"
-                                id="logemail"
-                                autoComplete="off"
-
-                                value={email}
-                                onChange={e => setEmail(e.target.value)}
-                              />
-                              <i className="input-icon uil uil-at"></i>
-                            </Form.Group>
+                            <EmailInput />
 
                             <Form.Group className="form-group mt-2">
                               <Form.Control
@@ -85,15 +79,12 @@ const Auth = observer((props) => {
                                 placeholder="Your Password"
                                 id="logpass"
                                 autoComplete="off"
-
                                 value={password}
-                                onChange={e => setPassword(e.target.value)}
+                                onChange={(e) => setPassword(e.target.value)}
                               />
                               <i className="input-icon uil uil-lock-alt"></i>
                             </Form.Group>
-                            <Button
-                              className="btn mt-4"
-                              onClick={click}>
+                            <Button className="btn mt-4" onClick={click}>
                               Log
                             </Button>
                             {/*                                                         <p className="mb-0 mt-4 text-center"><a href="#0" className="link">Forgot your password?</a></p>*/}
@@ -105,19 +96,7 @@ const Auth = observer((props) => {
                       <div className="center-wrap">
                         <div className="section text-center">
                           <h4 className="mb-4 pb-3">Sign Up</h4>
-
-                          <Form.Group className="form-group mt-2">
-                            <Form.Control
-                              type="email"
-                              name="email"
-                              className="form-style" placeholder="Your Email" id="logemail"
-                              autoComplete="off"
-
-                              value={email}
-                              onChange={e => setEmail(e.target.value)}
-                            />
-                            <i className="input-icon uil uil-at"></i>
-                          </Form.Group>
+                          <EmailInput />
                           <Form.Group className="form-group mt-2">
                             <Form.Control
                               type="password"
@@ -127,13 +106,11 @@ const Auth = observer((props) => {
                               id="logpass"
                               autoComplete="off"
                               value={password}
-                              onChange={e => setPassword(e.target.value)}
+                              onChange={(e) => setPassword(e.target.value)}
                             />
                             <i className="input-icon uil uil-lock-alt"></i>
                           </Form.Group>
-                          <Button className="btn mt-4"
-                            onClick={click}
-                          >
+                          <Button className="btn mt-4" onClick={click}>
                             Sign
                           </Button>
                         </div>
@@ -148,6 +125,6 @@ const Auth = observer((props) => {
       </div>
     </Modal>
   );
-})
+});
 
 export default Auth;

@@ -1,35 +1,33 @@
-import React, { useContext } from 'react';
+import React, { useContext } from "react";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 
 const TypeBar = observer(() => {
-  const { card } = useContext(Context)
+  const { course } = useContext(Context);
   return (
-    <ListGroup horizontal
-      className="occupation-bar"
-    >
+    <ListGroup horizontal className="occupation-bar">
       <ListGroup.Item
         className="py-2 px-1 auth__title"
-        style={{ cursor: 'pointer' }}
-        active={Object.entries(card.setSelectedOccupation).length === 0}
-        onClick={() => card.setSelectedOccupation({})}
-        key={'unical'}
+        style={{ cursor: "pointer" }}
+        active={Object.entries(course.setSelectedOccupation).length === 0}
+        onClick={() => course.setSelectedOccupation({})}
+        key={"unical"}
       >
         Все профессии
       </ListGroup.Item>
 
-      {card.occupations.map(occupation =>
+      {course.occupations.map((occupation) => (
         <ListGroup.Item
-          style={{ cursor: 'pointer' }}
-          active={occupation.id === card.selectedOccupation.id}
-          onClick={() => card.setSelectedOccupation(occupation)}
+          style={{ cursor: "pointer" }}
+          active={occupation.id === course.selectedOccupation.id}
+          onClick={() => course.setSelectedOccupation(occupation)}
           key={occupation.id}
         >
           {occupation.name}
         </ListGroup.Item>
-      )}
+      ))}
     </ListGroup>
   );
 });

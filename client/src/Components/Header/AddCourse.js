@@ -1,30 +1,34 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import "./Header.css";
 
 import { Context } from "../../index.js";
-import { CATALOG_ROUTE } from "../../Utils/consts.js"
-import { createCourse, fetchCourses, fetchOccupations } from "../../HTTP/coursesAPI.js"
+import { CATALOG_ROUTE } from "../../Utils/consts.js";
+import {
+  createCourse,
+  fetchCourses,
+  fetchOccupations,
+} from "../../HTTP/coursesAPI.js";
 
-import { Card, Button, Modal, Row, Col, Form } from 'react-bootstrap';
+import { Card, Button, Modal, Row, Col, Form } from "react-bootstrap";
 
 const AddCourse = ({ show, onHide }) => {
-  const { card } = useContext(Context);
+  const { course } = useContext(Context);
   const history = useHistory();
 
-  const [author, setAuthor] = useState('');
-  const [colorCard, setColorCard] = useState('#192534');
-  const [name, setName] = useState('');
-  const [urlCourse, setUrlCourse] = useState('');
-  const [description, setDescription] = useState('');
-  const [occupation, setOccupation] = useState('');
+  const [author, setAuthor] = useState("");
+  const [colorCard, setColorCard] = useState("#192534");
+  const [name, setName] = useState("");
+  const [urlCourse, setUrlCourse] = useState("");
+  const [description, setDescription] = useState("");
+  const [occupation, setOccupation] = useState("");
 
   const [image, setImage] = useState(null);
   const imageRef = React.useRef(null);
 
   useEffect(() => {
-    fetchOccupations().then(data => card.setOccupations(data))
-  }, [])
+    fetchOccupations().then((data) => course.setOccupations(data));
+  }, []);
 
   const useDisplayImage = () => {
     const [result, setResult] = React.useState("");
@@ -35,57 +39,79 @@ const AddCourse = ({ show, onHide }) => {
         setResult(e.target.result);
       });
       reader.readAsDataURL(imageFile);
-    }
+    };
 
     return { result, uploader };
-  }
+  };
 
   const { result, uploader } = useDisplayImage();
 
   const addCourse = () => {
     const formData = new FormData();
-    formData.append('author', author);
-    formData.append('name', name);
-    formData.append('description', description);
-    formData.append('course_url', urlCourse);
-    formData.append('fone', colorCard);
-    formData.append('image', image);
-    // formData.append('courseAuthorId', card.selectedAuthor.id)
-    formData.append('occupation', occupation)
+    formData.append("author", author);
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("course_url", urlCourse);
+    formData.append("fone", colorCard);
+    formData.append("image", image);
+    // formData.append('courseAuthorId', course.selectedAuthor.id)
+    formData.append("occupation", occupation);
 
     createCourse(formData).then((data) => {
-      fetchCourses().then(data => card.setCardData(data.rows));
+      fetchCourses().then((data) => course.setCourseData(data.rows));
       history.push(CATALOG_ROUTE);
       onHide();
-    }
-    )
-  }
+    });
+  };
 
   return (
-    <Modal show={show} onHide={onHide} className="card__modal" size="lg" centered>
+    <Modal
+      show={show}
+      onHide={onHide}
+      className="card__modal"
+      size="lg"
+      centered
+    >
       <Modal.Body>
-        <Card className="content-card" style={{ backgroundColor: `${colorCard}` }}>
+        <Card
+          className="content-card"
+          style={{ backgroundColor: `${colorCard}` }}
+        >
           <Form method="post">
             <Card.Header className="content-card-header">
-              <Form.Label className="font-weight-bold text-center">Create course</Form.Label>
+              <Form.Label className="font-weight-bold text-center">
+                Create course
+              </Form.Label>
               <Row>
                 <Col className="pl-2">
-                  <Form.Control className="card-form" type="text" placeholder="Enter author"
+                  <Form.Control
+                    className="card-form"
+                    type="text"
+                    placeholder="Enter author"
                     value={author}
-                    onChange={e => setAuthor(e.target.value)}
+                    onChange={(e) => setAuthor(e.target.value)}
                   />
                 </Col>
                 <Col>
-                  <Form.Control className="ml-auto p-0" type="color" id="favcolor" name="favcolor"
-                    onChange={e => setColorCard(e.target.value)}
+                  <Form.Control
+                    className="ml-auto p-0"
+                    type="color"
+                    id="favcolor"
+                    name="favcolor"
+                    onChange={(e) => setColorCard(e.target.value)}
                     value={`${colorCard}`}
                   />
-
                 </Col>
               </Row>
 
               <Form.Group className="card__group">
-                <Form.Control className="card-form p-0 mt-2" id="image" type="file" name="image" label="Paste or select image" accept="image/*"
+                <Form.Control
+                  className="card-form p-0 mt-2"
+                  id="image"
+                  type="file"
+                  name="image"
+                  label="Paste or select image"
+                  accept="image/*"
                   onChange={(e) => {
                     setImage(e.target.files[0]);
                     uploader(e);
@@ -94,13 +120,17 @@ const AddCourse = ({ show, onHide }) => {
               </Form.Group>
             </Card.Header>
 
-
-            {result && <Card.Img ref={imageRef} src={result} alt="Image of course" />}
+            {result && (
+              <Card.Img ref={imageRef} src={result} alt="Image of course" />
+            )}
             <Card.Body>
               <Card.Title className="mb-2">
-                <Form.Control className="card-form" type="name" placeholder="Enter name of course"
+                <Form.Control
+                  className="card-form"
+                  type="name"
+                  placeholder="Enter name of course"
                   value={name}
-                  onChange={e => setName(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </Card.Title>
 
@@ -109,41 +139,48 @@ const AddCourse = ({ show, onHide }) => {
                   <Card.Text className="pl-2 my-2">Link:</Card.Text>
                 </Col>
                 <Col>
-                  <Form.Control className="card-form" type="text" placeholder="Enter url" name="url"
+                  <Form.Control
+                    className="card-form"
+                    type="text"
+                    placeholder="Enter url"
+                    name="url"
                     value={urlCourse}
-                    onChange={e => setUrlCourse(e.target.value)}
+                    onChange={(e) => setUrlCourse(e.target.value)}
                   />
                 </Col>
               </Row>
-              <Form.Control as="textarea"
+              <Form.Control
+                as="textarea"
                 className="card-form"
-                placeholder="Enter description" name="description"
+                placeholder="Enter description"
+                name="description"
                 style={{ minHeight: 120 }}
                 value={description}
-                onChange={e => setDescription(e.target.value)}
+                onChange={(e) => setDescription(e.target.value)}
               />
               <Form.Control
                 className="card-form"
                 list="searchList"
-                placeholder="Enter occupation" name="description"
+                placeholder="Enter occupation"
+                name="description"
                 value={occupation}
-                onChange={e => setOccupation(e.target.value)}
+                onChange={(e) => setOccupation(e.target.value)}
               />
               <datalist id="searchList">
-                {card.occupations.map((item, index) => {
-                  <option key={index}>{item}</option>
+                {course.occupations.map((item, index) => {
+                  <option key={index}>{item}</option>;
                 })}
               </datalist>
 
-              <Button className="mx-auto d-block"
-                onClick={addCourse}
-              >Create</Button>
+              <Button className="mx-auto d-block" onClick={addCourse}>
+                Create
+              </Button>
             </Card.Body>
           </Form>
         </Card>
       </Modal.Body>
     </Modal>
   );
-}
+};
 
 export default AddCourse;

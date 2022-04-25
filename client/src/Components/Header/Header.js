@@ -4,13 +4,14 @@ import { observer } from "mobx-react-lite";
 import "./Header.css";
 
 import { Container, Form, Button, Navbar } from "react-bootstrap";
-import Auth from './Auth.js';
-import AddCourse from './AddCourse.js';
+import Auth from "./Auth.js";
+import AddCourse from "./AddCourse.js";
 
-import { useLogOut } from '../../Utils'
+import { useLogOut } from "../../Utils";
 
 import mainLogo from "../../Assets/header/logo.svg";
 import search from "../../Assets/header/search.svg";
+import profile from "../../Assets/header/profile.svg";
 import { CATALOG_ROUTE } from "../../Utils/consts.js";
 
 const Header = observer(() => {
@@ -20,11 +21,17 @@ const Header = observer(() => {
 
   const onSearchSource = (e) => {
     e.preventDefault();
-  }
+  };
+
+  const onClickProfile = () => {
+    if (!user.isAuth) {
+      setAuthModalShow(true);
+    }
+  };
 
   return (
     <header className="header">
-      <Container className="header__container fixed_container fixed-top py-2">
+      <div className="header__container fixed_container py-2">
         <Navbar expand="lg" className="justify-content-between">
           <Navbar.Brand href={CATALOG_ROUTE} className="text-white">
             <img
@@ -33,7 +40,8 @@ const Header = observer(() => {
               alt="Logo"
               width="30"
               height="30"
-            /> UpToEducation
+            />{" "}
+            UpToEducation
           </Navbar.Brand>
 
           {/* <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -45,31 +53,21 @@ const Header = observer(() => {
               type="text"
               placeholder="Поиск курсов на сайте"
             />
-            <button className="header-search__button"
-              onClick={onSearchSource}
-            >
-              <img
-                className="header-search__icon"
-                src={search}
-                alt="search" />
+            <button className="header-search__button" onClick={onSearchSource}>
+              <img className="header-search__icon" src={search} alt="search" />
             </button>
           </Form>
 
-          {!(user.isAuth) ?
-            <button variant="primary" onClick={() => setAuthModalShow(true)}>
-              Auth
-              {/* https://www.youtube.com/channel/UCbwXnUipZsLfUckBPsC7Jog/community?lb=UgkxOS23ELaeCA4bNHtgJbtdlpiSbFVb_Kd5 */}
-            </button>
-            :
-            <>
-              <button variant="primary" onClick={useLogOut()}>
-                Выйти
-              </button>
-              <button className="header-add-course" onClick={() => setLgShow(true)}>
-                {/* <img src={addCourse} alt="addCourse" /> */}
-              </button>
-            </>
-          }
+          <button
+            className="header_auth__button"
+            variant="primary"
+            onClick={onClickProfile}
+          >
+            <img className="header_auth__icon" src={profile} alt="profile" />
+            {user.isAuth && <p className="mx-1 mb-0">Личный кабинет</p>}
+            {/* https://www.youtube.com/channel/UCbwXnUipZsLfUckBPsC7Jog/community?lb=UgkxOS23ELaeCA4bNHtgJbtdlpiSbFVb_Kd5 */}
+          </button>
+
           {/* </Navbar.Collapse> */}
 
           <AddCourse show={lgShow} onHide={() => setLgShow(false)} />
@@ -79,7 +77,7 @@ const Header = observer(() => {
             setAuthModalShow={setAuthModalShow}
           />
         </Navbar>
-      </Container>
+      </div>
     </header>
   );
 });
