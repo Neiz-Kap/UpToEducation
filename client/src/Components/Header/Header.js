@@ -1,22 +1,23 @@
 import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
+
 import { Context } from "../../index.js";
 import { observer } from "mobx-react-lite";
 import "./Header.css";
 
 import { Container, Form, Button, Navbar } from "react-bootstrap";
 import Auth from "./Auth.js";
-import AddCourse from "./AddCourse.js";
 
 import { useLogOut } from "../../Utils";
 
 import mainLogo from "../../Assets/header/logo.svg";
 import search from "../../Assets/header/search.svg";
 import profile from "../../Assets/header/profile.svg";
-import { CATALOG_ROUTE } from "../../Utils/consts.js";
+import { CATALOG_ROUTE, ACCOUNT_ROUTE } from "../../Utils/consts.js";
 
 const Header = observer(() => {
+  const history = useHistory();
   const [authModalShow, setAuthModalShow] = useState(false);
-  const [lgShow, setLgShow] = useState(false);
   const { user } = useContext(Context);
 
   const onSearchSource = (e) => {
@@ -26,6 +27,8 @@ const Header = observer(() => {
   const onClickProfile = () => {
     if (!user.isAuth) {
       setAuthModalShow(true);
+    } else {
+      history.push(ACCOUNT_ROUTE);
     }
   };
 
@@ -59,7 +62,7 @@ const Header = observer(() => {
           </Form>
 
           <button
-            className="header_auth__button"
+            className="header_auth__button ms-2"
             variant="primary"
             onClick={onClickProfile}
           >
@@ -70,7 +73,6 @@ const Header = observer(() => {
 
           {/* </Navbar.Collapse> */}
 
-          <AddCourse show={lgShow} onHide={() => setLgShow(false)} />
           <Auth
             show={authModalShow}
             onHide={() => setAuthModalShow(false)}

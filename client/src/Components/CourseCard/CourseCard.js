@@ -65,10 +65,7 @@ const CourseCard = observer((props) => {
   return (
     <Col xs={12} sm={6} lg={4} className="mb-4">
       <Card className="content-card" style={{ backgroundColor: realFone }}>
-        <Card.Header
-          className="content-card-header d-flex
-justify-content-between align-items-center"
-        >
+        <Card.Header className="content-card-header d-flex justify-content-between align-items-center">
           {props.id}) {props.author}
           {user.isAuth && (
             <div className="card__buttons w-100 d-flex justify-content-between">
@@ -145,7 +142,7 @@ justify-content-between align-items-center"
               className="d-block ml-1"
               target="_blank"
             >
-              {urlCourse}
+              Начать изучение курса
             </Card.Link>
           </Card.Text>
           <Card.Text className="card-body-text" title={props.description}>

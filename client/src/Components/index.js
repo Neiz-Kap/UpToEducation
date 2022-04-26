@@ -14,6 +14,7 @@ import BrandBar from "./BrandBar";
 import TypeBar from "./TypeBar";
 
 import EmailInput from "./Input/EmailInput.js";
+import PassInput from "./Input/PassInput.js";
 
 import Pages from "./Pages.js";
 import AppRoutes from "./AppRoutes";
@@ -36,5 +37,6 @@ export { CourseCard };
 export { FilterAside };
 
 export { EmailInput };
+export { PassInput };
 
 export { Pages };
