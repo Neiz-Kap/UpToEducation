@@ -80,6 +80,8 @@ class CardController {
         occupationFromDB = await Occupation.create({ name: occupation })
       }
 
+      // может с author точно также сделать?
+
       let occupationId = occupationFromDB.id;
       console.log(`occupationId`, occupationId)
       const card = await Course.create({ author, name, description, course_url, fone, image: fileName, courseAuthorId, occupationId });

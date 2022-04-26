@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -10,23 +10,28 @@ import { fetchBrands, fetchDevices, fetchTypes } from "../HTTP/coursesAPI";
 import Pages from "../Components/Pages";
 
 const Shop = observer(() => {
-  const { card } = useContext(Context)
+  const { course } = useContext(Context);
 
   useEffect(() => {
-    fetchTypes().then(data => card.setOccupations(data))
-    fetchBrands().then(data => card.setAuthors(data))
-    fetchDevices(null, null, 1, 2).then(data => {
-      card.setCardData(data.rows)
-      card.setTotalCount(data.count)
-    })
-  }, [])
+    fetchTypes().then((data) => course.setOccupations(data));
+    fetchBrands().then((data) => course.setAuthors(data));
+    fetchDevices(null, null, 1, 2).then((data) => {
+      course.setCourseData(data.rows);
+      course.setTotalCount(data.count);
+    });
+  }, []);
 
   useEffect(() => {
-    fetchDevices(card.selectedOccupation.id, card.selectedAuthor.id, card.page, 2).then(data => {
-      card.setCardData(data.rows)
-      card.setTotalCount(data.count)
-    })
-  }, [card.page, card.selectedOccupation, card.selectedAuthor,])
+    fetchDevices(
+      course.selectedOccupation.id,
+      course.selectedAuthor.id,
+      course.page,
+      2
+    ).then((data) => {
+      course.setCourseData(data.rows);
+      course.setTotalCount(data.count);
+    });
+  }, [course.page, course.selectedOccupation, course.selectedAuthor]);
 
   return (
     <Container>

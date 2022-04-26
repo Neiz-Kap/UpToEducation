@@ -1,37 +1,36 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
-import AppRoutes from "./Components/AppRoutes";
-import Header from "./Components/Header/Header";
-import NavBar from './Components/NavBar/NavBar';
+import { AppRoutes, Header, SideBar } from "./Components";
 import { observer } from "mobx-react-lite";
 import { Context } from "./index";
 import { check } from "./HTTP/userAPI";
-import { Spinner } from "react-bootstrap";
+import loader from "./Assets/icons/loader.svg";
 
 const App = observer(() => {
-  const { user } = useContext(Context)
-  const [isLoading, setLoading] = useState(true)
+  const { user } = useContext(Context);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    check().then(data => {
-      user.setUser(data)
-      user.setIsAuth(true)
-    }).finally(() => setLoading(false))
-  }, [])
+    check()
+      .then((data) => {
+        user.setUser(data);
+        user.setIsAuth(true);
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
   if (isLoading) {
     return (
       <div className="spinner-block d-flex justify-content-center align-items-center p-5">
-        <strong className="mr-2">Loading...</strong>
-        <Spinner animation="border" variant="info" role="status" aria-hidden="true" />
+        <img className="svgLoader" src={loader} alt="Loading..." />
       </div>
-    )
+    );
   }
 
   return (
     <BrowserRouter>
+      <SideBar />
       <Header />
-      <NavBar />
       <main className="c">
         <AppRoutes />
       </main>

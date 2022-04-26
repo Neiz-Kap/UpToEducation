@@ -1,9 +1,9 @@
 import React from "react";
 
 const Account = (props) => {
-    // const urlImg = `../../../Image/cards/cards-${{props.img}}.jpg`
     return (
         <div className="account">
+            <h2>Личный кабинет</h2>
             Здесь будут находится ваши личные данные
             <br/>
             а переменная(isAuth = true)

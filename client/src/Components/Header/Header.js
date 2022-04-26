@@ -1,66 +1,85 @@
 import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
+
 import { Context } from "../../index.js";
 import { observer } from "mobx-react-lite";
 import "./Header.css";
 
-import { Container, Form, Button, Navbar, InputGroup } from "react-bootstrap";
-import Auth from './Auth.js';
-import AddCourse from './AddCourse.js';
+import { Container, Form, Button, Navbar } from "react-bootstrap";
+import Auth from "./Auth.js";
 
-import { useLogOut } from '../../Utils'
+import { useLogOut } from "../../Utils";
 
-import mainLogo from "../../Image/header/logo.svg";
-import search from "../../Image/header/search.svg";
-import addCourse from "../../Image/header/add.svg";
+import mainLogo from "../../Assets/header/logo.svg";
+import search from "../../Assets/header/search.svg";
+import profile from "../../Assets/header/profile.svg";
+import { CATALOG_ROUTE, ACCOUNT_ROUTE } from "../../Utils/consts.js";
 
 const Header = observer(() => {
+  const history = useHistory();
   const [authModalShow, setAuthModalShow] = useState(false);
-  const [lgShow, setLgShow] = useState(false);
   const { user } = useContext(Context);
+
+  const onSearchSource = (e) => {
+    e.preventDefault();
+  };
+
+  const onClickProfile = () => {
+    if (!user.isAuth) {
+      setAuthModalShow(true);
+    } else {
+      history.push(ACCOUNT_ROUTE);
+    }
+  };
+
   return (
     <header className="header">
-      <Container className="fixed-top p-2">
+      <div className="header__container fixed_container py-2">
         <Navbar expand="lg" className="justify-content-between">
-          <Navbar.Brand href="/catalog" className="text-white">
-            <img alt="Logo" src={mainLogo} width="30" height="30" className="d-inline-block align-top" /> UpToEducation
+          <Navbar.Brand href={CATALOG_ROUTE} className="text-white">
+            <img
+              className="d-inline-block align-top"
+              src={mainLogo}
+              alt="Logo"
+              width="30"
+              height="30"
+            />{" "}
+            UpToEducation
           </Navbar.Brand>
 
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Form inline>
-              <InputGroup>
-                <Form.Control type="text" placeholder="Поиск курсов на сайте" className="h-auto" />
-                <InputGroup.Append>
-                  <Button>
-                    <img src={search} alt="search" />
-                  </Button>
-                </InputGroup.Append>
-              </InputGroup>
-            </Form>
-            {!(user.isAuth) ?
-              <Button variant="primary" onClick={() => setAuthModalShow(true)}>
-                Auth
-              </Button>
-              :
-              <>
-                <Button variant="primary" onClick={useLogOut()}>
-                  Выйти
-                </Button>
-                <button className="header-add-course" onClick={() => setLgShow(true)}>
-                  <img src={addCourse} alt="addCourse" />
-                </button>
-              </>
-            }
-          </Navbar.Collapse>
+          {/* <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav"> */}
 
-          <AddCourse show={lgShow} onHide={() => setLgShow(false)} />
+          <Form inline className="header-search__container ">
+            <Form.Control
+              className="header-search__input h-auto"
+              type="text"
+              placeholder="Поиск курсов на сайте"
+            />
+            <button className="header-search__button" onClick={onSearchSource}>
+              <img className="header-search__icon" src={search} alt="search" />
+            </button>
+          </Form>
+
+          <button
+            className="header_auth__button ms-2"
+            variant="primary"
+            onClick={onClickProfile}
+          >
+            <img className="header_auth__icon" src={profile} alt="profile" />
+            {user.isAuth && <p className="mx-1 mb-0">Личный кабинет</p>}
+            {/* https://www.youtube.com/channel/UCbwXnUipZsLfUckBPsC7Jog/community?lb=UgkxOS23ELaeCA4bNHtgJbtdlpiSbFVb_Kd5 */}
+          </button>
+
+          {/* </Navbar.Collapse> */}
+
           <Auth
             show={authModalShow}
             onHide={() => setAuthModalShow(false)}
             setAuthModalShow={setAuthModalShow}
           />
         </Navbar>
-      </Container>
+      </div>
     </header>
   );
 });

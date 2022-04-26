@@ -1,19 +1,31 @@
-  import InfoPage from './InfoPage/InfoPage.js';
-  import HelpPage from './HelpPage/HelpPage.js';
-  import CatalogPage from './CatalogPage/CatalogPage.js';
-  import CardPage from './CardPage/CardPage.js'
+import InfoPage from './InfoPage/InfoPage.js';
+import HelpPage from './HelpPage/HelpPage.js';
 
-  import AccountPage from './AccountPage/AccountPage.js';
-  import ChatPage from './ChatPage/ChatPage.js';
-  import MyCoursesPage from './MyCoursesPage/MyCoursesPage.js';
+import CourseCatalogPage from './CoursePages/CourseCatalogPage.js';
+import CoursePage from './CoursePages/CoursePage.js'
+import MyCoursesPage from './CoursePages/MyCoursesPage.js'; // isAuth = trueCoursePages/
+import ChoiseCoursesPage from './CoursePages/ChoiseCoursesPage.js'; // isAuth = trueCoursePages/
 
+import AccountPage from './AccountPage/AccountPage.js';
+import ChatPage from './ChatPage/ChatPage.js';
 
-  export {InfoPage}
-  export {HelpPage}
-  export {CatalogPage};
-  export {CardPage};
+import AdminPage from './AdminPage.js'
 
-  export {ChatPage};
-  export {AccountPage}
-  export {MyCoursesPage}
+import NotFound from './NotFound.js'
+
+export { InfoPage }
+export { HelpPage }
+
+export { CourseCatalogPage }
+export { CoursePage }
+export { MyCoursesPage }
+export { ChoiseCoursesPage }
+
+export { ChatPage }
+export { AccountPage }
+
+export { AdminPage }
+
+export { NotFound }
+
 
