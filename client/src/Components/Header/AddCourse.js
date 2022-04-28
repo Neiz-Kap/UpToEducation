@@ -48,7 +48,6 @@ const AddCourse = ({ show, onHide }) => {
 
   const addCourse = () => {
     const formData = new FormData();
-    formData.append("author", author);
     formData.append("name", name);
     formData.append("description", description);
     formData.append("course_url", urlCourse);
@@ -56,6 +55,7 @@ const AddCourse = ({ show, onHide }) => {
     formData.append("image", image);
     // formData.append('courseAuthorId', course.selectedAuthor.id)
     formData.append("occupation", occupation);
+    formData.append("author", author);
 
     createCourse(formData).then((data) => {
       fetchCourses().then((data) => course.setCourseData(data.rows));
@@ -151,7 +151,7 @@ const AddCourse = ({ show, onHide }) => {
               </Row>
               <Form.Control
                 as="textarea"
-                className="card-form"
+                className="card-form mb-2"
                 placeholder="Enter description"
                 name="description"
                 style={{ minHeight: 120 }}
@@ -159,14 +159,14 @@ const AddCourse = ({ show, onHide }) => {
                 onChange={(e) => setDescription(e.target.value)}
               />
               <Form.Control
-                className="card-form"
+                className="card-form mb-2"
                 list="searchList"
                 placeholder="Enter occupation"
                 name="description"
                 value={occupation}
                 onChange={(e) => setOccupation(e.target.value)}
               />
-              <datalist id="searchList">
+              <datalist className="mb-2" id="searchList">
                 {course.occupations.map((item, index) => {
                   <option key={index}>{item}</option>;
                 })}
