@@ -8,6 +8,7 @@ import CreateType from "./modals/CreateType.js";
 
 import SideBar from "./SideBar/SideBar.js";
 import CourseCard from "./CourseCard/CourseCard.js";
+import CoursePlaceholderCard from "./CourseCard/CoursePlaceholderCard.js";
 import FilterAside from "./FilterAside.js";
 
 import BrandBar from "./BrandBar";
@@ -34,6 +35,7 @@ export { BrandBar };
 export { TypeBar };
 
 export { CourseCard };
+export { CoursePlaceholderCard };
 export { FilterAside };
 
 export { EmailInput };

@@ -3,13 +3,15 @@ import jwt_decode from "jwt-decode";
 
 // получение всех и одного
 export const fetchCourses = async (
+  isModerated = false,
   occupationId,
   authorId,
   page = 1,
   limit = 10
 ) => {
-  const { data } = await $host.get("api/card", {
+  const { data } = await $host.get("api/course", {
     params: {
+      isModerated,
       occupationId,
       authorId,
       page,
@@ -20,7 +22,7 @@ export const fetchCourses = async (
 };
 
 export const fetchCourse = async (id) => {
-  const { data } = await $host.get("api/card/" + id);
+  const { data } = await $host.get("api/course/" + id);
   return data;
 };
 
@@ -30,7 +32,7 @@ export const fetchDevices = async (
   page = 1,
   limit = 10
 ) => {
-  const { data } = await $host.get("api/card", {
+  const { data } = await $host.get("api/course", {
     params: {
       occupationId,
       authorId,
@@ -43,31 +45,31 @@ export const fetchDevices = async (
 
 // ready
 export const fetchOneDevice = async (id) => {
-  const { data } = await $host.get("api/card/" + id);
+  const { data } = await $host.get("api/course/" + id);
   return data;
 };
 
 // создаие товара
 export const createCourse = async (course) => {
-  const { data } = await $authHost.post("api/card", course);
+  const { data } = await $authHost.post("api/course", course);
   return data;
 };
 
 // ready
 export const createDevice = async (course) => {
-  const { data } = await $authHost.post("api/card", course); // ready
+  const { data } = await $authHost.post("api/course", course); // ready
   return data;
 };
 
 // обновление курса
 export const updateCourse = async (updateCourse) => {
-  const { data } = await $authHost.put("api/card/", updateCourse);
+  const { data } = await $authHost.put("api/course/", updateCourse);
   return data;
 };
 
 // удаление курса
 export const deleteCourse = async (course_id) => {
-  const { data } = await $authHost.delete("api/card/" + course_id);
+  const { data } = await $authHost.delete("api/course/" + course_id);
   return data;
 };
 

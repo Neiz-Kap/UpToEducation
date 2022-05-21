@@ -13,7 +13,7 @@ import { useLogOut } from "../../Utils";
 import mainLogo from "../../Assets/header/logo.svg";
 import search from "../../Assets/header/search.svg";
 import profile from "../../Assets/header/profile.svg";
-import { CATALOG_ROUTE, ACCOUNT_ROUTE } from "../../Utils/consts.js";
+import { COURSE_CATALOG_ROUTE, ACCOUNT_ROUTE } from "../../Utils/consts.js";
 
 const Header = observer(() => {
   const history = useHistory();
@@ -36,7 +36,7 @@ const Header = observer(() => {
     <header className="header">
       <div className="header__container fixed_container py-2">
         <Navbar expand="lg" className="justify-content-between">
-          <Navbar.Brand href={CATALOG_ROUTE} className="text-white">
+          <Navbar.Brand href={COURSE_CATALOG_ROUTE} className="text-white">
             <img
               className="d-inline-block align-top"
               src={mainLogo}

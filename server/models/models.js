@@ -19,6 +19,7 @@ const Course = sequelize.define("course", {
   fone: { type: DataTypes.STRING, allowNull: false },
   image: { type: DataTypes.STRING, allowNull: false },
   publicator: { type: DataTypes.INTEGER },
+  isModerated: { type: DataTypes.BOOLEAN, defaultValue: false },
   // date_dev: { type: DataTypes.DATA }
   // rating
   // real_price

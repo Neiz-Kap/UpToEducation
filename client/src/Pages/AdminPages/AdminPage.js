@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Button, Container } from "react-bootstrap";
-import CreateBrand from "../Components/modals/CreateBrand";
-import CreateDevice from "../Components/modals/CreateDevice";
-import CreateType from "../Components/modals/CreateType";
+import { CreateBrand, CreateDevice, CreateType } from "../../Components";
 
 const Admin = () => {
-  const [brandVisible, setBrandVisible] = useState(false)
-  const [typeVisible, setTypeVisible] = useState(false)
-  const [deviceVisible, setDeviceVisible] = useState(false)
+  const [brandVisible, setBrandVisible] = useState(false);
+  const [typeVisible, setTypeVisible] = useState(false);
+  const [deviceVisible, setDeviceVisible] = useState(false);
 
   return (
     <Container className="d-flex flex-column">
@@ -33,7 +31,10 @@ const Admin = () => {
         Добавить устройство
       </Button>
       <CreateBrand show={brandVisible} onHide={() => setBrandVisible(false)} />
-      <CreateDevice show={deviceVisible} onHide={() => setDeviceVisible(false)} />
+      <CreateDevice
+        show={deviceVisible}
+        onHide={() => setDeviceVisible(false)}
+      />
       <CreateType show={typeVisible} onHide={() => setTypeVisible(false)} />
     </Container>
   );

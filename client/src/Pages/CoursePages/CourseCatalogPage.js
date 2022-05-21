@@ -10,7 +10,7 @@ import { CourseCard, FilterAside, TypeBar, BrandBar } from "../../Components";
 const CourseCatalogPage = observer((props) => {
   const { course } = useContext(Context);
   useEffect(() => {
-    fetchCourses().then((data) => course.setCourseData(data.rows));
+    fetchCourses(true).then((data) => course.setCourseData(data.rows));
   }, []);
 
   return (

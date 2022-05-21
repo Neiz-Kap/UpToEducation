@@ -1,31 +1,33 @@
-import InfoPage from './InfoPage/InfoPage.js';
-import HelpPage from './HelpPage/HelpPage.js';
+import InfoPage from "./InfoPage/InfoPage.js";
+import HelpPage from "./HelpPage/HelpPage.js";
 
-import CourseCatalogPage from './CoursePages/CourseCatalogPage.js';
-import CoursePage from './CoursePages/CoursePage.js'
-import MyCoursesPage from './CoursePages/MyCoursesPage.js'; // isAuth = trueCoursePages/
-import ChoiseCoursesPage from './CoursePages/ChoiseCoursesPage.js'; // isAuth = trueCoursePages/
+import CoursesPage from "./CoursePages/CoursesPage.js";
+import CourseCatalogPage from "./CoursePages/CourseCatalogPage.js";
+import CoursePage from "./CoursePages/CoursePage.js";
+import MyCoursesPage from "./CoursePages/MyCoursesPage.js"; // isAuth = trueCoursePages/
+import ChoiseCoursesPage from "./CoursePages/ChoiseCoursesPage.js"; // isAuth = trueCoursePages/
 
-import AccountPage from './AccountPage/AccountPage.js';
-import ChatPage from './ChatPage/ChatPage.js';
+import AccountPage from "./AccountPage/AccountPage.js";
+import ChatPage from "./ChatPage/ChatPage.js";
 
-import AdminPage from './AdminPage.js'
+import AdminPage from "./AdminPages/AdminPage.js";
+import UnmoderCoursesPage from "./AdminPages/UnmoderCoursesPage.js";
 
-import NotFound from './NotFound.js'
+import NotFound from "./NotFound.js";
 
-export { InfoPage }
-export { HelpPage }
+export { InfoPage };
+export { HelpPage };
 
-export { CourseCatalogPage }
-export { CoursePage }
-export { MyCoursesPage }
-export { ChoiseCoursesPage }
+export { CoursesPage };
+export { CourseCatalogPage };
+export { CoursePage };
+export { MyCoursesPage };
+export { ChoiseCoursesPage };
 
-export { ChatPage }
-export { AccountPage }
+export { ChatPage };
+export { AccountPage };
 
-export { AdminPage }
+export { AdminPage };
+export { UnmoderCoursesPage };
 
-export { NotFound }
-
-
+export { NotFound };

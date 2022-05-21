@@ -11,8 +11,7 @@ const CoursePage = () => {
     fetchOneDevice(id).then((data) => setCourse(data));
   }, []);
 
-  // console.log(`card: ${JSON.stringify(course, null, 2)}`);
-  // console.log(`card.info.length == 0: ${JSON.stringify(course.info.length == 0, null, 2)}`);
+  // console.log(`course.info.length == 0: ${JSON.stringify(course.info.length == 0, null, 2)}`);
 
   return (
     <>

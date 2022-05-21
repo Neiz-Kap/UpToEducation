@@ -8,7 +8,7 @@ import PassInput from "../Input/PassInput.js";
 import "./Header.css";
 import { Context } from "../../index.js";
 import { registration, login } from "../../HTTP/userAPI";
-import { CATALOG_ROUTE } from "../../Utils/consts.js";
+import { COURSE_CATALOG_ROUTE } from "../../Utils/consts.js";
 
 const Auth = observer((props) => {
   const { user } = useContext(Context);
@@ -34,7 +34,7 @@ const Auth = observer((props) => {
 
       user.setUser(user);
       user.setIsAuth(true);
-      history.push(CATALOG_ROUTE);
+      history.push(COURSE_CATALOG_ROUTE);
       props.onHide(false);
     } catch (e) {
       console.log(`e: ${JSON.stringify(e, null, 2)}`);

@@ -47,6 +47,10 @@ code {
   background-color: transparent;
 }
 
+.modal-open {
+  padding-right: 0 !important;
+}
+
 .navbar-collapse {
   display: flex;
   justify-content: center;

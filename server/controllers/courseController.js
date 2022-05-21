@@ -26,37 +26,19 @@ const fs = require("fs");
 
 class CourseController {
   async getAll(req, res) {
-    let { occupationId, authorId, page, limit } = req.query;
+    let { isModerated, occupationId, authorId, page, limit } = req.query;
     page = page || 1;
     limit = limit || 12;
 
     let offset = limit * (page - 1);
 
     let courses;
-    if (!occupationId && !authorId) {
-      courses = await Course.findAndCountAll({ limit, offset }, { raw: true });
-    }
-    if (occupationId && !authorId) {
-      courses = await Course.findAndCountAll({
-        where: { occupationId },
-        limit,
-        offset,
-      });
-    }
-    if (!occupationId && authorId) {
-      courses = await Course.findAndCountAll({
-        where: { authorId },
-        limit,
-        offset,
-      });
-    }
-    if (occupationId && authorId) {
-      courses = await Course.findAndCountAll({
-        where: { authorId, occupationId },
-        limit,
-        offset,
-      });
-    }
+    let condition = {};
+    if (occupationId && !authorId) condition = { occupationId };
+    if (!occupationId && authorId) condition = { authorId };
+    if (occupationId && authorId) condition = { authorId, occupationId };
+    condition = { ...condition, isModerated };
+    courses = await Course.findAndCountAll({ where: condition, limit, offset });
 
     for (let course of courses) {
       course.author = await CourseAuthor.findOne({ where: { authorId } }); //
@@ -118,6 +100,7 @@ class CourseController {
         image: fileName,
         courseAuthorId,
         occupationId,
+        isModerated,
       });
       return res.json(course);
     } catch (e) {

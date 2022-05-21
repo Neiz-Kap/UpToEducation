@@ -1,9 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { useDisplayImage } from "../../Hooks";
+
 import "./Header.css";
 
 import { Context } from "../../index.js";
-import { CATALOG_ROUTE } from "../../Utils/consts.js";
+import { COURSE_CATALOG_ROUTE } from "../../Utils/consts.js";
 import {
   createCourse,
   fetchCourses,
@@ -13,7 +15,7 @@ import {
 import { Card, Button, Modal, Row, Col, Form } from "react-bootstrap";
 
 const AddCourse = ({ show, onHide }) => {
-  const { course } = useContext(Context);
+  const { course, user } = useContext(Context);
   const history = useHistory();
 
   const [author, setAuthor] = useState("");
@@ -22,29 +24,13 @@ const AddCourse = ({ show, onHide }) => {
   const [urlCourse, setUrlCourse] = useState("");
   const [description, setDescription] = useState("");
   const [occupation, setOccupation] = useState("");
-
   const [image, setImage] = useState(null);
-  const imageRef = React.useRef(null);
+
+  const { result, uploader } = useDisplayImage();
 
   useEffect(() => {
     fetchOccupations().then((data) => course.setOccupations(data));
   }, []);
-
-  const useDisplayImage = () => {
-    const [result, setResult] = React.useState("");
-    const uploader = (e) => {
-      const imageFile = e.target.files[0];
-      const reader = new FileReader();
-      reader.addEventListener("load", (e) => {
-        setResult(e.target.result);
-      });
-      reader.readAsDataURL(imageFile);
-    };
-
-    return { result, uploader };
-  };
-
-  const { result, uploader } = useDisplayImage();
 
   const addCourse = () => {
     const formData = new FormData();
@@ -53,16 +39,18 @@ const AddCourse = ({ show, onHide }) => {
     formData.append("course_url", urlCourse);
     formData.append("fone", colorCard);
     formData.append("image", image);
-    // formData.append('courseAuthorId', course.selectedAuthor.id)
     formData.append("occupation", occupation);
     formData.append("author", author);
+    // formData.append("publicator", author);
 
-    createCourse(formData).then((data) => {
+    createCourse(formData).then(() => {
       fetchCourses().then((data) => course.setCourseData(data.rows));
-      history.push(CATALOG_ROUTE);
+      history.push(COURSE_CATALOG_ROUTE);
       onHide();
     });
   };
+
+  console.log(user);
 
   return (
     <Modal
@@ -120,9 +108,7 @@ const AddCourse = ({ show, onHide }) => {
               </Form.Group>
             </Card.Header>
 
-            {result && (
-              <Card.Img ref={imageRef} src={result} alt="Image of course" />
-            )}
+            {result && <Card.Img src={result} alt="Image of course" />}
             <Card.Body>
               <Card.Title className="mb-2">
                 <Form.Control
@@ -161,7 +147,7 @@ const AddCourse = ({ show, onHide }) => {
               <Form.Control
                 className="card-form mb-2"
                 list="searchList"
-                placeholder="Enter occupation"
+                placeholder="Укажите профессию"
                 name="description"
                 value={occupation}
                 onChange={(e) => setOccupation(e.target.value)}

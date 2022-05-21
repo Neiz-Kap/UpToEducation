@@ -1,20 +1,31 @@
 import {
-  ACCOUNT_ROUTE, CHOISE_ROUTE, CHAT_ROUTE,
-  INFO_ROUTE, FAQ_ROUTE,
-  MY_COURSES_ROUTE, COURSE_ROUTE, CATALOG_ROUTE
-} from './Utils/consts.js';
+  // ---- Courses Routes ------
+  COURSE_CATALOG_ROUTE,
+  COURSE_ROUTE,
+  CHOISE_COURSES_ROUTE,
+  MY_COURSES_ROUTE,
+  CHAT_ROUTE,
+  INFO_ROUTE,
+  FAQ_ROUTE,
+  ACCOUNT_ROUTE,
+  ADMIN_ROUTE,
+  ADMIN_COURSES_ROUTE,
+} from "./Utils/consts.js";
 
 import {
   InfoPage,
   HelpPage,
+  CoursesPage,
   CourseCatalogPage,
   CoursePage,
   MyCoursesPage,
   ChoiseCoursesPage,
   AccountPage,
   ChatPage,
-} from './Pages'
-
+  // ---- Admin Pages ------
+  AdminPage,
+  UnmoderCoursesPage,
+} from "./Pages";
 
 export const publicRoutes = [
   {
@@ -26,14 +37,18 @@ export const publicRoutes = [
     Component: HelpPage,
   },
   {
-    path: CATALOG_ROUTE,
-    Component: CourseCatalogPage
+    path: COURSE_CATALOG_ROUTE,
+    Component: CourseCatalogPage,
   },
   {
-    path: COURSE_ROUTE + ':id',
+    path: COURSE_ROUTE + ":id",
     Component: CoursePage,
   },
-]
+  {
+    path: COURSE_ROUTE,
+    Component: CoursesPage,
+  },
+];
 
 export const authRoutes = [
   {
@@ -41,7 +56,7 @@ export const authRoutes = [
     Component: MyCoursesPage,
   },
   {
-    path: CHOISE_ROUTE,
+    path: CHOISE_COURSES_ROUTE,
     Component: ChoiseCoursesPage,
   },
   {
@@ -52,4 +67,15 @@ export const authRoutes = [
     path: CHAT_ROUTE,
     Component: ChatPage,
   },
-]
+];
+
+export const authAdminRoutes = [
+  {
+    path: ADMIN_ROUTE,
+    Component: AdminPage,
+  },
+  {
+    path: ADMIN_COURSES_ROUTE,
+    Component: UnmoderCoursesPage,
+  },
+];

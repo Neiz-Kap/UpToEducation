@@ -39,7 +39,7 @@ const CourseCard = observer((props) => {
   let urlCourse = props.course_url.includes("http://", 0)
     ? props.course_url
     : `https://${props.course_url}`;
-  let imageUrl = `http://localhost:8888/${props.image}`;
+  let imageUrl = `${SERVER_LINK}/${props.image}`;
 
   const getDataToModal = () => {
     setLgShow(true);
