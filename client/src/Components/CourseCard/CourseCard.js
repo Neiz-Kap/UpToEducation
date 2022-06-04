@@ -23,7 +23,8 @@ import more from "../../Assets/cardIcons/more.svg";
 import share from "../../Assets/cardIcons/share.svg";
 import comment from "../../Assets/cardIcons/comment.svg";
 import { COURSE_ROUTE, SERVER_LINK } from "../../Utils/consts";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
+import { getUrl } from "./../../Utils/helpers";
 
 // Альтернативный вариант карточки
 // https://www.youtube.com/channel/UCbwXnUipZsLfUckBPsC7Jog/community?lb=UgkxeXByOWLPygBXbtF7-J98QEdiOPCR4hep
@@ -31,7 +32,7 @@ import { useHistory } from "react-router";
 const CourseCard = observer((props) => {
   const { user } = useContext(Context);
   const { course } = useContext(Context);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [lgShow, setLgShow] = useState(false);
   const [dataCourse, setDataCourse] = useState({});
 
@@ -59,7 +60,9 @@ const CourseCard = observer((props) => {
 
   const copyLink = () => {
     let id = props.id;
-    navigator.clipboard.writeText(SERVER_LINK + COURSE_ROUTE + id);
+    navigator.clipboard.writeText(
+      getUrl([SERVER_LINK, COURSE_ROUTE, "/", id], false)
+    );
   };
 
   return (
@@ -129,7 +132,7 @@ const CourseCard = observer((props) => {
         <Card.Img
           src={imageUrl}
           alt="Изображение курса"
-          onClick={() => history.push(COURSE_ROUTE + props.id)}
+          onClick={() => navigate(getUrl([COURSE_ROUTE, "/", props.id], false))}
           style={{ cursor: "pointer" }}
         />
         {/*             <input type="checkbox" className="read-more-checker" id={`read-more-checker-${props.id}`} />*/}
@@ -150,7 +153,9 @@ const CourseCard = observer((props) => {
           </Card.Text>
           {/* <div className="card-body-bottom"></div>*/}
         </Card.Body>
-        <Card.Button onClick={() => history.push(COURSE_ROUTE + props.id)}>
+        <Card.Button
+          onClick={() => navigate(getUrl([COURSE_ROUTE, "/", props.id]))}
+        >
           Подробнее
         </Card.Button>
         {/* <label htmlFor={`read-more-checker-${props.id}`} className="read-more-button"></label>*/}

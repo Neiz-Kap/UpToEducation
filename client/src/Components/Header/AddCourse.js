@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDisplayImage } from "../../Hooks";
 
 import "./Header.css";
 
 import { Context } from "../../index.js";
-import { COURSE_CATALOG_ROUTE } from "../../Utils/consts.js";
+import { COURSE_CATALOG_FULL_ROUTE } from "../../Utils/consts.js";
 import {
   createCourse,
   fetchCourses,
@@ -16,7 +16,7 @@ import { Card, Button, Modal, Row, Col, Form } from "react-bootstrap";
 
 const AddCourse = ({ show, onHide }) => {
   const { course, user } = useContext(Context);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [author, setAuthor] = useState("");
   const [colorCard, setColorCard] = useState("#192534");
@@ -45,7 +45,7 @@ const AddCourse = ({ show, onHide }) => {
 
     createCourse(formData).then(() => {
       fetchCourses().then((data) => course.setCourseData(data.rows));
-      history.push(COURSE_CATALOG_ROUTE);
+      navigate(COURSE_CATALOG_FULL_ROUTE);
       onHide();
     });
   };

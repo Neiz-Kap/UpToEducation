@@ -20,6 +20,10 @@ import PassInput from "./Input/PassInput.js";
 import Pages from "./Pages.js";
 import AppRoutes from "./AppRoutes";
 
+import ErrorLimit from "./Error/ErrorLimit.js"; //
+import ErrorBoundary from "./Error/ErrorBoundary.js";
+import FallbackComponent from "./Error/FallbackComponent.js";
+
 export { AppRoutes };
 
 export { Header };
@@ -42,3 +46,7 @@ export { EmailInput };
 export { PassInput };
 
 export { Pages };
+
+export { ErrorLimit }; //
+export { ErrorBoundary };
+export { FallbackComponent };

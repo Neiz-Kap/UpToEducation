@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Nav, Container } from "react-bootstrap";
 
 import {
-  COURSE_CATALOG_ROUTE,
+  COURSE_CATALOG_FULL_ROUTE,
   FAQ_ROUTE,
   INFO_ROUTE,
 } from "../../Utils/consts.js";
@@ -14,7 +14,7 @@ const NavBar = (props) => {
       <Container>
         <Nav className="justify-content-around" as="ul">
           <Nav.Item as="li">
-            <NavLink to={COURSE_CATALOG_ROUTE}>Каталог</NavLink>
+            <NavLink to={COURSE_CATALOG_FULL_ROUTE}>Каталог</NavLink>
           </Nav.Item>
           <Nav.Item as="li">
             <NavLink to={INFO_ROUTE}>Информация о проекте</NavLink>

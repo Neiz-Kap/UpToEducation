@@ -4,6 +4,7 @@ import {
   COURSE_ROUTE,
   CHOISE_COURSES_ROUTE,
   MY_COURSES_ROUTE,
+  COURSE_CATALOG_FULL_ROUTE,
   CHAT_ROUTE,
   INFO_ROUTE,
   FAQ_ROUTE,
@@ -12,7 +13,10 @@ import {
   ADMIN_COURSES_ROUTE,
 } from "./Utils/consts.js";
 
+import { Navigate } from "react-router-dom";
 import {
+  NotFound,
+  // Pages
   InfoPage,
   HelpPage,
   CoursesPage,
@@ -27,55 +31,70 @@ import {
   UnmoderCoursesPage,
 } from "./Pages";
 
-export const publicRoutes = [
-  {
-    path: INFO_ROUTE,
-    Component: InfoPage,
-  },
-  {
-    path: FAQ_ROUTE,
-    Component: HelpPage,
-  },
-  {
-    path: COURSE_CATALOG_ROUTE,
-    Component: CourseCatalogPage,
-  },
-  {
-    path: COURSE_ROUTE + ":id",
-    Component: CoursePage,
-  },
-  {
-    path: COURSE_ROUTE,
-    Component: CoursesPage,
-  },
-];
+export const routes = (isAuth, isAdmin) => {
+  const publicRoutes = [
+    {
+      path: "/",
+      element: <Navigate to={COURSE_CATALOG_FULL_ROUTE} replace />,
+    },
+    {
+      path: INFO_ROUTE,
+      element: <InfoPage />,
+    },
+    {
+      path: FAQ_ROUTE,
+      element: <HelpPage />,
+    },
+    {
+      path: COURSE_ROUTE,
+      element: <CoursesPage />,
+      children: [
+        {
+          path: "",
+          element: <Navigate to={COURSE_CATALOG_FULL_ROUTE} replace />,
+        },
+        { path: COURSE_CATALOG_ROUTE, element: <CourseCatalogPage /> },
+        { path: CHOISE_COURSES_ROUTE, element: <ChoiseCoursesPage /> },
+        { path: MY_COURSES_ROUTE, element: <MyCoursesPage /> },
+        {
+          path: COURSE_ROUTE + ":id",
+          element: <CoursePage />,
+        },
+      ],
+    },
+    {
+      path: ACCOUNT_ROUTE,
+      element: <AccountPage />,
+    },
+    {
+      path: "*",
+      element: <NotFound />,
+    },
+  ];
 
-export const authRoutes = [
-  {
-    path: MY_COURSES_ROUTE,
-    Component: MyCoursesPage,
-  },
-  {
-    path: CHOISE_COURSES_ROUTE,
-    Component: ChoiseCoursesPage,
-  },
-  {
-    path: ACCOUNT_ROUTE,
-    Component: AccountPage,
-  },
-  {
-    path: CHAT_ROUTE,
-    Component: ChatPage,
-  },
-];
-
-export const authAdminRoutes = [
-  {
-    path: ADMIN_ROUTE,
-    Component: AdminPage,
-  },
-  {
-    path: ADMIN_COURSES_ROUTE,
-    Component: UnmoderCoursesPage,
-  },
-];
+  const authRoutes = [
+    {
+      path: MY_COURSES_ROUTE,
+      element: <MyCoursesPage />,
+    },
+    {
+      path: CHOISE_COURSES_ROUTE,
+      element: <ChoiseCoursesPage />,
+    },
+    {
+      path: CHAT_ROUTE,
+      element: <ChatPage />,
+    },
+  ];
+  const authAdminRoutes = [
+    {
+      path: ADMIN_ROUTE,
+      element: <AdminPage />,
+    },
+    {
+      path: ADMIN_COURSES_ROUTE,
+      element: <UnmoderCoursesPage />,
+    },
+  ];
+  return [...publicRoutes, ...authRoutes, ...authAdminRoutes];
+};

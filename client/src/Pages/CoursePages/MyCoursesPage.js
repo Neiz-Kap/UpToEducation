@@ -23,7 +23,7 @@ const ChoiseCoursesPage = observer((props) => {
   // console.log(`course.choiseCardData: ${course.choiseCardData}`)
 
   return (
-    <div>
+    <section>
       <h1>Добавленные мною курсы</h1>
       <Row className="content content--sorting-list g-2">
         <Col xs={12} sm={6} lg={4} className="mb-4">
@@ -75,7 +75,7 @@ const ChoiseCoursesPage = observer((props) => {
         <FilterAside /> */}
         <AddCourse show={lgShow} onHide={() => setLgShow(false)} />
       </Row>
-    </div>
+    </section>
   );
 });
 

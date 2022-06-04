@@ -1,4 +1,8 @@
-# Мой курсовой и дипломный проект
+# Курсовой и дипломный проект по теме "Веб-платформа для самообразования и саморазвития"
+
+## Назначение проекта
+
+## ...
 
 ## Технический стек приложения
 
@@ -6,17 +10,25 @@
 
 Технологии: React, Mobx, React Bootstrap, Axios
 
+Больше библиотек и зависимостей см. в client/package.json
+
 ### Backend
 
 Технологии: Express, NodeJS, Postgres, Sequelize
 
+Больше библиотек и зависимостей см. в server/package.json
+
+## Архитектура проекта
+
+### ...
+
 ## Установка и запуск
 
-git clone https://github.com/Neiz-Kap/UpToEducation.git
+`git clone https://github.com/Neiz-Kap/UpToEducation.git`
 
 ### Frontend - Client
 
-` cd client`
+`cd client`
 
 `yarn` или `npm`
 
@@ -29,7 +41,3 @@ git clone https://github.com/Neiz-Kap/UpToEducation.git
 `yarn` или `npm`
 
 `yarn start` или `npm start`
-
-## Архитектура проекта
-
-### ...

@@ -10,9 +10,9 @@ import plus from "../../Assets/sidebar/plus.svg";
 import star from "../../Assets/sidebar/star.svg";
 
 import {
-  COURSE_CATALOG_ROUTE,
-  CHOISE_COURSES_ROUTE,
-  MY_COURSES_ROUTE,
+  COURSE_CATALOG_FULL_ROUTE,
+  CHOISE_COURSES_FULL_ROUTE,
+  MY_COURSES_FULL_ROUTE,
   INFO_ROUTE,
   FAQ_ROUTE,
   ACCOUNT_ROUTE,
@@ -22,7 +22,7 @@ export const SidebarData = [
   {
     id: 1,
     title: "Course Catalog",
-    path: COURSE_CATALOG_ROUTE,
+    path: COURSE_CATALOG_FULL_ROUTE,
     icon: course,
     iconClosed: arrowDown,
     iconOpened: arrowUp,
@@ -30,17 +30,17 @@ export const SidebarData = [
     // subNav: [
     //   {
     //     title: "Course Catalog",
-    //     path: COURSE_CATALOG_ROUTE,
+    //     path: COURSE_CATALOG_FULL_ROUTE,
     //     icon: "",
     //   },
     //   {
     //     title: "Choise Courses",
-    //     path: CHOISE_COURSES_ROUTE,
+    //     path: CHOISE_COURSES_FULL_ROUTE,
     //     icon: star,
     //   },
     //   {
     //     title: "My Courses",
-    //     path: MY_COURSES_ROUTE,
+    //     path: MY_COURSES_FULL_ROUTE,
     //     icon: plus,
     //   },
     // ],

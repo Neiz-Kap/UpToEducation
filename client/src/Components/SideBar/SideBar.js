@@ -13,7 +13,7 @@ const SideBar = () => {
   // Инфо
   return (
     <section className="nav-section">
-      <nav div className="navigation">
+      <nav className="navigation">
         <ul className="sidebar__nav" as="ul">
           {SidebarData.map((menuItem) => {
             return <SubMenu key={menuItem.id} menuItem={menuItem} />;

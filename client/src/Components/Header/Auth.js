@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { Modal, Container, Row, Form, Button } from "react-bootstrap";
 import EmailInput from "../Input/EmailInput.js";
@@ -8,11 +8,11 @@ import PassInput from "../Input/PassInput.js";
 import "./Header.css";
 import { Context } from "../../index.js";
 import { registration, login } from "../../HTTP/userAPI";
-import { COURSE_CATALOG_ROUTE } from "../../Utils/consts.js";
+import { COURSE_CATALOG_FULL_ROUTE } from "../../Utils/consts.js";
 
 const Auth = observer((props) => {
   const { user } = useContext(Context);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [isLogin, setIsLogin] = useState(true);
 
@@ -34,7 +34,7 @@ const Auth = observer((props) => {
 
       user.setUser(user);
       user.setIsAuth(true);
-      history.push(COURSE_CATALOG_ROUTE);
+      navigate(COURSE_CATALOG_FULL_ROUTE);
       props.onHide(false);
     } catch (e) {
       console.log(`e: ${JSON.stringify(e, null, 2)}`);

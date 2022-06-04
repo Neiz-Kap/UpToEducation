@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { Context } from "../../index.js";
 import { observer } from "mobx-react-lite";
@@ -13,10 +13,13 @@ import { useLogOut } from "../../Utils";
 import mainLogo from "../../Assets/header/logo.svg";
 import search from "../../Assets/header/search.svg";
 import profile from "../../Assets/header/profile.svg";
-import { COURSE_CATALOG_ROUTE, ACCOUNT_ROUTE } from "../../Utils/consts.js";
+import {
+  COURSE_CATALOG_FULL_ROUTE,
+  ACCOUNT_ROUTE,
+} from "../../Utils/consts.js";
 
 const Header = observer(() => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [authModalShow, setAuthModalShow] = useState(false);
   const { user } = useContext(Context);
 
@@ -28,7 +31,7 @@ const Header = observer(() => {
     if (!user.isAuth) {
       setAuthModalShow(true);
     } else {
-      history.push(ACCOUNT_ROUTE);
+      navigate(ACCOUNT_ROUTE);
     }
   };
 
@@ -36,7 +39,7 @@ const Header = observer(() => {
     <header className="header">
       <div className="header__container fixed_container py-2">
         <Navbar expand="lg" className="justify-content-between">
-          <Navbar.Brand href={COURSE_CATALOG_ROUTE} className="text-white">
+          <Navbar.Brand href={COURSE_CATALOG_FULL_ROUTE} className="text-white">
             <img
               className="d-inline-block align-top"
               src={mainLogo}
@@ -50,7 +53,7 @@ const Header = observer(() => {
           {/* <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav"> */}
 
-          <Form inline className="header-search__container ">
+          <Form className="header-search__container ">
             <Form.Control
               className="header-search__input h-auto"
               type="text"
