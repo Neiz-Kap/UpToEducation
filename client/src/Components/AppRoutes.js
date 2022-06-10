@@ -8,9 +8,11 @@ import { useCustomContext } from "./../Hooks";
 
 const AppRouter = observer(() => {
   const { user } = useCustomContext();
-  const pages = useRoutes(routes(user.isAuth, user.user?.role === "ADMIN"));
+  const isAuth = user.isAuth;
+  const isAdmin = user.user?.role === "ADMIN";
+  const pages = useRoutes(routes(isAuth, isAdmin));
   return (
-    <Container className="fixed_container content__container mt-3">
+    <Container className="fixed_container content__container">
       {pages}
     </Container>
   );
