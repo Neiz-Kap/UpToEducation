@@ -1,8 +1,8 @@
 import React from "react";
 
-import { Nav } from "react-bootstrap";
 import { NavLink, Outlet } from "react-router-dom";
 
+import { Tabs } from "../../Components";
 import {
   COURSE_CATALOG_FULL_ROUTE,
   MY_COURSES_FULL_ROUTE,
@@ -10,19 +10,23 @@ import {
 } from "./../../Utils/consts";
 
 const CoursesPage = () => {
+  const courseTabs = [
+    {
+      path: COURSE_CATALOG_FULL_ROUTE,
+      title: "Course Catalog",
+    },
+    {
+      path: CHOISE_COURSES_FULL_ROUTE,
+      title: "Choises Courses",
+    },
+    {
+      path: MY_COURSES_FULL_ROUTE,
+      title: "My Added Courses",
+    },
+  ];
   return (
-    <section>
-      <Nav className="justify-content-around nav-tabs" as="ul">
-        <Nav.Item as="li">
-          <NavLink to={COURSE_CATALOG_FULL_ROUTE}>Course Catalog</NavLink>
-        </Nav.Item>
-        <Nav.Item as="li">
-          <NavLink to={CHOISE_COURSES_FULL_ROUTE}>Choises Courses</NavLink>
-        </Nav.Item>
-        <Nav.Item as="li">
-          <NavLink to={MY_COURSES_FULL_ROUTE}>My Added Courses</NavLink>
-        </Nav.Item>
-      </Nav>
+    <section className="constent__section">
+      <Tabs tabsList={courseTabs} />
       <Outlet />
     </section>
   );
