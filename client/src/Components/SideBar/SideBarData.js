@@ -49,22 +49,15 @@ export const SidebarData = (isAdmin) => [
     // ],
   },
   {
-    id: 3,
-    title: "Help | Support | FAQ",
-    path: FAQ_ROUTE,
-    icon: help,
-    isPublic: true,
-  },
-  {
-    id: 4,
-    title: "Account | Personal Area",
+    id: 2,
+    title: "Personal Area",
     path: ACCOUNT_ROUTE,
     icon: profile,
     isPublic: true,
   },
   {
-    id: 2,
-    title: "Info",
+    id: 3,
+    title: "Info For User",
     path: INFO_ROUTE,
     icon: info,
     isPublic: true,
@@ -92,39 +85,17 @@ export const SidebarData = (isAdmin) => [
     // ],
   },
   {
-    id: 6,
-    title: "Chat",
+    id: 4,
+    title: "Messages | Chat",
     path: CHAT_ROUTE,
     icon: profile,
     isPublic: false,
   },
   {
-    id: 7,
+    id: 5,
     title: "CMS | Admin",
     path: ADMIN_ROUTE,
     icon: profile,
     isPublic: isAdmin,
   },
-  // {
-  //   id: 5,
-  //   title: 'Messages',
-  //   path: '/messages',
-  //   icon: '',
-
-  //   iconClosed: arrowDown,
-  //   iconOpened: arrowUp,
-
-  //   subNav: [
-  //     {
-  //       title: 'Message 1',
-  //       path: '/messages/message1',
-  //       icon: '',
-  //     },
-  //     {
-  //       title: 'Message 2',
-  //       path: '/messages/message2',
-  //       icon: '',
-  //     }
-  //   ]
-  // },
 ];

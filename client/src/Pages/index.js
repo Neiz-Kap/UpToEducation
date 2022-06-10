@@ -1,5 +1,9 @@
-import InfoPage from "./InfoPage/InfoPage.js";
-import HelpPage from "./HelpPage/HelpPage.js";
+import ForUserPage from "./ForUserPages/ForUserPage.js";
+import DevelopPage from "./ForUserPages/DevelopPage";
+import FAQPage from "./ForUserPages/FAQPage.js";
+import HelpPage from "./ForUserPages/HelpPage.js";
+import InfoPage from "./ForUserPages/InfoPage.js";
+import SupportPage from "./ForUserPages/SupportPage.js";
 
 import CoursesPage from "./CoursePages/CoursesPage.js";
 import CourseCatalogPage from "./CoursePages/CourseCatalogPage.js";
@@ -17,8 +21,12 @@ import NotFound from "./ErrorPages/NotFound.js";
 import NotAccess from "./ErrorPages/NotAccess.js";
 import AuthRedirectModal from "./ErrorPages/AuthRedirectModal.js";
 
-export { InfoPage };
+export { ForUserPage };
+export { DevelopPage };
+export { FAQPage };
 export { HelpPage };
+export { InfoPage };
+export { SupportPage };
 
 export { CoursesPage };
 export { CourseCatalogPage };

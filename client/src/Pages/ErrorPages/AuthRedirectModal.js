@@ -21,7 +21,7 @@ const AuthRedirectModal = () => {
     setAuthModalShow(true);
   };
   return (
-    <section className="constent__section">
+    <section className="content__section">
       <Modal
         className={"redirect__modal"}
         show={show}

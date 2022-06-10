@@ -14,7 +14,7 @@ const CourseCatalogPage = observer((props) => {
   }, []);
 
   return (
-    <section className="constent__section">
+    <section className="content__section">
       {/* <TypeBar />
       <BrandBar /> */}
       {/* может 4 карточки, если Container fluid? */}

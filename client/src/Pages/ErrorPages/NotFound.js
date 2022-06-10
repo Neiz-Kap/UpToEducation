@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const NotFound = () => {
   return (
-    <section className="constent__section">
+    <section className="content__section">
       <h1>Ошибка 404</h1>
       <p>
         Возможно, эта страница была удалена или её никогда не существовало.

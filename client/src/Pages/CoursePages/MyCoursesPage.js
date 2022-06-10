@@ -23,7 +23,7 @@ const ChoiseCoursesPage = observer((props) => {
   // console.log(`course.choiseCardData: ${course.choiseCardData}`)
 
   return (
-    <section className="constent__section">
+    <section className="content__section">
       <h1>Добавленные мною курсы</h1>
       <Row className="content content--sorting-list g-2">
         <Col xs={12} sm={6} lg={4} className="mb-4">

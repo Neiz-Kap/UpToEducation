@@ -1,8 +1,8 @@
 import React from "react";
 
-import { NavLink, Outlet } from "react-router-dom";
-
 import { Tabs } from "../../Components";
+import { Outlet } from "react-router-dom";
+
 import {
   COURSE_CATALOG_FULL_ROUTE,
   MY_COURSES_FULL_ROUTE,
@@ -25,7 +25,7 @@ const CoursesPage = () => {
     },
   ];
   return (
-    <section className="constent__section">
+    <section className="content__section">
       <Tabs tabsList={courseTabs} />
       <Outlet />
     </section>

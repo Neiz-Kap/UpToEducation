@@ -1,9 +1,9 @@
 import React from "react";
 
-const InfoPage = () => {
+const DevelopPage = () => {
   return (
-    <section className="constent__section">
-      <h1>Информация о проекте</h1>
+    <section className="content__section">
+      <h1>Develop</h1>
       Дипломный проект разработан Мехедовым Иваном
       <br />
       <div className="mt-3 d-flex justify-content-around">
@@ -39,4 +39,4 @@ const InfoPage = () => {
   );
 };
 
-export default InfoPage;
+export default DevelopPage;

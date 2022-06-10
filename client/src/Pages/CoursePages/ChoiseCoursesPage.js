@@ -23,7 +23,7 @@ const ChoiseCoursesPage = observer((props) => {
 
   if (loading) {
     return (
-      <section className="constent__section">
+      <section className="content__section">
         <h2>Избранные курсы из каталога</h2>
         <Row className="content content--sorting-list g-2">
           {course.choiseCardData.map(

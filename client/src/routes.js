@@ -5,10 +5,16 @@ import {
   CHOISE_COURSES_ROUTE,
   MY_COURSES_ROUTE,
   COURSE_CATALOG_FULL_ROUTE,
-  CHAT_ROUTE,
+  // Info for user Routes
   INFO_ROUTE,
+  DEVELOP_ROUTE,
   FAQ_ROUTE,
+  HELP_ROUTE,
+  SUPPORT_ROUTE,
+  // Auth Routes
   ACCOUNT_ROUTE,
+  CHAT_ROUTE,
+  // Admin Routes
   ADMIN_ROUTE,
   ADMIN_COURSES_ROUTE,
 } from "./Utils/consts.js";
@@ -18,17 +24,24 @@ import {
   NotFound,
   NotAccess,
   AuthRedirectModal,
-  // Pages
+  // --- Pages ---
+  // Info Pages
+  ForUserPage,
   InfoPage,
+  DevelopPage,
+  FAQPage,
   HelpPage,
+  SupportPage,
+  // Courses Pages
   CoursesPage,
   CourseCatalogPage,
   CoursePage,
   MyCoursesPage,
   ChoiseCoursesPage,
+  // Auth Pages
   AccountPage,
   ChatPage,
-  // ---- Admin Pages ------
+  // Admin Pages
   AdminPage,
   UnmoderCoursesPage,
 } from "./Pages";
@@ -59,12 +72,31 @@ export const routes = (isAuth, isAdmin) => {
       element: <Navigate to={COURSE_CATALOG_FULL_ROUTE} replace />,
     },
     {
-      path: INFO_ROUTE,
-      element: <InfoPage />,
-    },
-    {
       path: FAQ_ROUTE,
       element: <HelpPage />,
+    },
+    {
+      path: INFO_ROUTE,
+      element: <ForUserPage />,
+      children: [
+        {
+          path: "info",
+          element: <InfoPage />,
+        },
+        { path: DEVELOP_ROUTE, element: <DevelopPage /> },
+        {
+          path: FAQ_ROUTE,
+          element: <FAQPage />,
+        },
+        {
+          path: HELP_ROUTE,
+          element: <HelpPage />,
+        },
+        {
+          path: SUPPORT_ROUTE,
+          element: <SupportPage />,
+        },
+      ],
     },
     {
       path: COURSE_ROUTE,
