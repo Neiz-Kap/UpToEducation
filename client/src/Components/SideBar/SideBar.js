@@ -20,4 +20,5 @@ const SideBar = () => {
       </nav>
     </section>
   );
+};
 export default SideBar;
