@@ -13,7 +13,9 @@ import ChatPage from "./ChatPage/ChatPage.js";
 import AdminPage from "./AdminPages/AdminPage.js";
 import UnmoderCoursesPage from "./AdminPages/UnmoderCoursesPage.js";
 
-import NotFound from "./NotFound.js";
+import NotFound from "./ErrorPages/NotFound.js";
+import NotAccess from "./ErrorPages/NotAccess.js";
+import AuthRedirectModal from "./ErrorPages/AuthRedirectModal.js";
 
 export { InfoPage };
 export { HelpPage };
@@ -31,3 +33,5 @@ export { AdminPage };
 export { UnmoderCoursesPage };
 
 export { NotFound };
+export { NotAccess };
+export { AuthRedirectModal };

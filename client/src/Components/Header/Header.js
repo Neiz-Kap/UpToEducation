@@ -6,7 +6,7 @@ import { observer } from "mobx-react-lite";
 import "./Header.css";
 
 import { Container, Form, Button, Navbar } from "react-bootstrap";
-import Auth from "./Auth.js";
+import Auth from "../Auth/Auth.js";
 
 import { useLogOut } from "../../Utils";
 
