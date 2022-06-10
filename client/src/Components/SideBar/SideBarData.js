@@ -11,19 +11,22 @@ import star from "../../Assets/sidebar/star.svg";
 
 import {
   COURSE_CATALOG_FULL_ROUTE,
-  CHOISE_COURSES_FULL_ROUTE,
-  MY_COURSES_FULL_ROUTE,
-  INFO_ROUTE,
+  // CHOISE_COURSES_FULL_ROUTE,
+  // MY_COURSES_FULL_ROUTE,
   FAQ_ROUTE,
+  INFO_ROUTE,
   ACCOUNT_ROUTE,
+  CHAT_ROUTE,
+  ADMIN_ROUTE,
 } from "../../Utils/consts";
 
-export const SidebarData = [
+export const SidebarData = (isAdmin) => [
   {
     id: 1,
     title: "Course Catalog",
     path: COURSE_CATALOG_FULL_ROUTE,
     icon: course,
+    isPublic: true,
     iconClosed: arrowDown,
     iconOpened: arrowUp,
 
@@ -46,10 +49,25 @@ export const SidebarData = [
     // ],
   },
   {
+    id: 3,
+    title: "Help | Support | FAQ",
+    path: FAQ_ROUTE,
+    icon: help,
+    isPublic: true,
+  },
+  {
+    id: 4,
+    title: "Account | Personal Area",
+    path: ACCOUNT_ROUTE,
+    icon: profile,
+    isPublic: true,
+  },
+  {
     id: 2,
     title: "Info",
     path: INFO_ROUTE,
     icon: info,
+    isPublic: true,
     iconClosed: arrowDown,
     iconOpened: arrowUp,
 
@@ -74,16 +92,18 @@ export const SidebarData = [
     // ],
   },
   {
-    id: 3,
-    title: "Help / Support",
-    path: FAQ_ROUTE,
-    icon: help,
+    id: 6,
+    title: "Chat",
+    path: CHAT_ROUTE,
+    icon: profile,
+    isPublic: false,
   },
   {
-    id: 4,
-    title: "Account",
-    path: ACCOUNT_ROUTE,
+    id: 7,
+    title: "CMS | Admin",
+    path: ADMIN_ROUTE,
     icon: profile,
+    isPublic: isAdmin,
   },
   // {
   //   id: 5,
