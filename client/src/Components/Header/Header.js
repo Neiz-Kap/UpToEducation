@@ -7,11 +7,11 @@ import "./Header.css";
 
 import { Container, Form, Button, Navbar } from "react-bootstrap";
 import Auth from "../Auth/Auth.js";
+import Search from "./Search";
 
 import { useLogOut } from "../../Utils";
 
 import mainLogo from "../../Assets/header/logo.svg";
-import search from "../../Assets/header/search.svg";
 import profile from "../../Assets/header/profile.svg";
 import {
   COURSE_CATALOG_FULL_ROUTE,
@@ -22,10 +22,6 @@ const Header = observer(() => {
   const navigate = useNavigate();
   const [authModalShow, setAuthModalShow] = useState(false);
   const { user } = useContext(Context);
-
-  const onSearchSource = (e) => {
-    e.preventDefault();
-  };
 
   const onClickProfile = () => {
     if (!user.isAuth) {
@@ -53,16 +49,7 @@ const Header = observer(() => {
           {/* <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav"> */}
 
-          <Form className="header-search__container ">
-            <Form.Control
-              className="header-search__input h-auto"
-              type="text"
-              placeholder="Поиск курсов на сайте"
-            />
-            <button className="header-search__button" onClick={onSearchSource}>
-              <img className="header-search__icon" src={search} alt="search" />
-            </button>
-          </Form>
+          <Search />
 
           <button
             className="header_auth__button ms-2"
