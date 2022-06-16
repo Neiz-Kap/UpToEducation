@@ -52,11 +52,14 @@ export const routes = (isAuth, isAdmin) => {
     {
       path: ADMIN_ROUTE,
       element: isAdmin ? <AdminPage /> : <NotAccess />,
+      children: [
+        {
+          path: ADMIN_COURSES_ROUTE,
+          element: isAdmin ? <UnmoderCoursesPage /> : <NotAccess />,
+        },
+      ],
     },
-    {
-      path: ADMIN_COURSES_ROUTE,
-      element: isAdmin ? <UnmoderCoursesPage /> : <NotAccess />,
-    },
+
     // authRoutes
     {
       path: ACCOUNT_ROUTE,

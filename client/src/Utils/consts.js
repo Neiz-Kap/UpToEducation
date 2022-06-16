@@ -29,4 +29,5 @@ export const ACCOUNT_ROUTE = "/account";
 export const CHAT_ROUTE = "/chat";
 
 export const ADMIN_ROUTE = "/admin";
-export const ADMIN_COURSES_ROUTE = ADMIN_ROUTE + "/" + "unmoderatedCourses";
+export const ADMIN_COURSES_ROUTE = "unmoderatedCourses";
+export const ADMIN_COURSES_FULL_ROUTE = ADMIN_ROUTE + "/" + ADMIN_COURSES_ROUTE;

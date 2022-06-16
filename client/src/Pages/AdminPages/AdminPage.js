@@ -1,15 +1,24 @@
 import React, { useState } from "react";
-import { Button, Container } from "react-bootstrap";
-import { CreateBrand, CreateDevice, CreateType } from "../../Components";
+import { Button } from "react-bootstrap";
+import { CreateBrand, CreateDevice, CreateType, Tabs } from "../../Components";
+import { ADMIN_COURSES_FULL_ROUTE } from "../../Utils/consts";
+import { Outlet } from "react-router-dom";
 
 const Admin = () => {
   const [brandVisible, setBrandVisible] = useState(false);
   const [typeVisible, setTypeVisible] = useState(false);
   const [deviceVisible, setDeviceVisible] = useState(false);
-
+  const adminPagesTabs = [
+    {
+      path: ADMIN_COURSES_FULL_ROUTE,
+      title: "Unmoderated Courses",
+    },
+  ];
   return (
-    <Container className="d-flex flex-column">
-      <Button
+    <section className="content__section">
+      <Tabs tabsList={adminPagesTabs} />
+      <Outlet />
+      {/* <Button
         variant={"outline-dark"}
         className="mt-4 p-2"
         onClick={() => setTypeVisible(true)}
@@ -35,8 +44,8 @@ const Admin = () => {
         show={deviceVisible}
         onHide={() => setDeviceVisible(false)}
       />
-      <CreateType show={typeVisible} onHide={() => setTypeVisible(false)} />
-    </Container>
+      <CreateType show={typeVisible} onHide={() => setTypeVisible(false)} /> */}
+    </section>
   );
 };
 
