@@ -7,7 +7,7 @@ import {
   FAQ_FULL_ROUTE,
   HELP_FULL_ROUTE,
   SUPPORT_FULL_ROUTE,
-} from "./../../Utils/consts";
+} from "../../Utils/consts";
 
 const ForUserPage = () => {
   const infoTabs = [

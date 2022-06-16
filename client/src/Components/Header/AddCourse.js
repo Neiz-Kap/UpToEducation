@@ -75,6 +75,7 @@ const AddCourse = ({ show, onHide }) => {
                   <Form.Control
                     className="card-form"
                     type="text"
+                    name="author"
                     placeholder="Enter author"
                     value={author}
                     onChange={(e) => setAuthor(e.target.value)}
@@ -154,7 +155,7 @@ const AddCourse = ({ show, onHide }) => {
               />
               <datalist className="mb-2" id="searchList">
                 {course.occupations.map((item, index) => {
-                  <option key={index}>{item}</option>;
+                  return <option key={index}>{item}</option>;
                 })}
               </datalist>
 

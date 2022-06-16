@@ -7,7 +7,7 @@ import {
   COURSE_CATALOG_FULL_ROUTE,
   MY_COURSES_FULL_ROUTE,
   CHOISE_COURSES_FULL_ROUTE,
-} from "./../../Utils/consts";
+} from "../../Utils/consts";
 
 const CoursesPage = () => {
   const courseTabs = [
