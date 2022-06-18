@@ -1,5 +1,6 @@
 import Auth from "./Auth/Auth.js";
-import AddCourse from "./Header/AddCourse.js";
+import AddCourse from "./AddCourse/AddCourse.js";
+import AddCourseButton from "./AddCourse/AddCourseButton.js";
 
 import CreateBrand from "./modals/CreateBrand.js";
 import CreateDevice from "./modals/CreateDevice.js";
@@ -8,8 +9,9 @@ import CreateType from "./modals/CreateType.js";
 import Header from "./Header/Header.js";
 import SideBar from "./SideBar/SideBar.js";
 
-import CourseCard from "./CourseCard/CourseCard.js";
-import CoursePlaceholderCard from "./CourseCard/CoursePlaceholderCard.js";
+import CourseList from "./Course/CourseList.js";
+import CourseCard from "./Course/CourseCard.js";
+import CoursePlaceholderCard from "./Course/CoursePlaceholderCard.js";
 
 import FilterAside from "./FilterAside.js";
 import BrandBar from "./BrandBar";
@@ -29,6 +31,7 @@ import FallbackComponent from "./Error/FallbackComponent.js";
 
 export { Auth };
 export { AddCourse };
+export { AddCourseButton };
 
 export { CreateBrand };
 export { CreateDevice };
@@ -41,6 +44,7 @@ export { FilterAside };
 export { BrandBar };
 export { TypeBar };
 
+export { CourseList };
 export { CourseCard };
 export { CoursePlaceholderCard };
 

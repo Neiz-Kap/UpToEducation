@@ -10,9 +10,7 @@ import plus from "../../Assets/sidebar/plus.svg";
 import star from "../../Assets/sidebar/star.svg";
 
 import {
-  COURSE_CATALOG_FULL_ROUTE,
-  // CHOISE_COURSES_FULL_ROUTE,
-  // MY_COURSES_FULL_ROUTE,
+  COURSE_ROUTE,
   FAQ_ROUTE,
   INFO_ROUTE,
   ACCOUNT_ROUTE,
@@ -24,7 +22,7 @@ export const SidebarData = (isAdmin) => [
   {
     id: 1,
     title: "Course Catalog",
-    path: COURSE_CATALOG_FULL_ROUTE,
+    path: COURSE_ROUTE,
     icon: course,
     isPublic: true,
     iconClosed: arrowDown,

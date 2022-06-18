@@ -38,6 +38,10 @@ code {
     monospace;
 }
 
+datalist {
+  display: none;
+}
+
 /*-----
     fixed bootstrap
 -----*/

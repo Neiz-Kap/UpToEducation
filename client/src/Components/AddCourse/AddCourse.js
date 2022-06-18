@@ -1,10 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDisplayImage } from "../../Hooks";
+import { useDisplayImage, useCustomContext } from "../../Hooks";
 
-import "./Header.css";
+import "./AddCourse.css";
 
-import { Context } from "../../index.js";
 import { COURSE_CATALOG_FULL_ROUTE } from "../../Utils/consts.js";
 import {
   createCourse,
@@ -15,7 +14,7 @@ import {
 import { Card, Button, Modal, Row, Col, Form } from "react-bootstrap";
 
 const AddCourse = ({ show, onHide }) => {
-  const { course, user } = useContext(Context);
+  const { course, user } = useCustomContext();
   const navigate = useNavigate();
 
   const [author, setAuthor] = useState("");
@@ -29,7 +28,9 @@ const AddCourse = ({ show, onHide }) => {
   const { result, uploader } = useDisplayImage();
 
   useEffect(() => {
-    fetchOccupations().then((data) => course.setOccupations(data));
+    fetchOccupations().then((data) => {
+      course.setOccupations(data);
+    });
   }, []);
 
   const addCourse = () => {
@@ -50,8 +51,6 @@ const AddCourse = ({ show, onHide }) => {
     });
   };
 
-  console.log(user);
-
   return (
     <Modal
       show={show}
@@ -71,19 +70,20 @@ const AddCourse = ({ show, onHide }) => {
                 Create course
               </Form.Label>
               <Row>
-                <Col className="pl-2">
+                <Col className="ps-2">
                   <Form.Control
                     className="card-form"
                     type="text"
                     name="author"
                     placeholder="Enter author"
+                    required
                     value={author}
                     onChange={(e) => setAuthor(e.target.value)}
                   />
                 </Col>
                 <Col>
                   <Form.Control
-                    className="ml-auto p-0"
+                    className="ms-auto p-0"
                     type="color"
                     id="favcolor"
                     name="favcolor"
@@ -101,6 +101,7 @@ const AddCourse = ({ show, onHide }) => {
                   name="image"
                   label="Paste or select image"
                   accept="image/*"
+                  required
                   onChange={(e) => {
                     setImage(e.target.files[0]);
                     uploader(e);
@@ -116,6 +117,7 @@ const AddCourse = ({ show, onHide }) => {
                   className="card-form"
                   type="name"
                   placeholder="Enter name of course"
+                  required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -123,14 +125,15 @@ const AddCourse = ({ show, onHide }) => {
 
               <Row>
                 <Col>
-                  <Card.Text className="pl-2 my-2">Link:</Card.Text>
+                  <Card.Text className="ps-2 my-2">Link:</Card.Text>
                 </Col>
                 <Col>
                   <Form.Control
                     className="card-form"
                     type="text"
-                    placeholder="Enter url"
                     name="url"
+                    placeholder="Enter url"
+                    required
                     value={urlCourse}
                     onChange={(e) => setUrlCourse(e.target.value)}
                   />
@@ -139,23 +142,25 @@ const AddCourse = ({ show, onHide }) => {
               <Form.Control
                 as="textarea"
                 className="card-form mb-2"
-                placeholder="Enter description"
                 name="description"
+                placeholder="Enter description"
+                required
                 style={{ minHeight: 120 }}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
               <Form.Control
                 className="card-form mb-2"
-                list="searchList"
-                placeholder="Укажите профессию"
                 name="description"
+                placeholder="Укажите профессию"
+                required
+                list="searchList"
                 value={occupation}
                 onChange={(e) => setOccupation(e.target.value)}
               />
               <datalist className="mb-2" id="searchList">
-                {course.occupations.map((item, index) => {
-                  return <option key={index}>{item}</option>;
+                {course.occupations.map((item) => {
+                  return <option key={item.id}>{item.name}</option>;
                 })}
               </datalist>
 
