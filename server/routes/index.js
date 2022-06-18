@@ -8,7 +8,7 @@ const occupationRouter = require("./occupationRouter");
 const authorRouter = require("./authorRouter");
 
 router.use("/user", userRouter);
-router.use("/choise", choiseRouter);
+router.use("/choiseCourse", choiseRouter);
 router.use("/course", courseRouter);
 router.use("/occupation", occupationRouter);
 router.use("/author", authorRouter);
