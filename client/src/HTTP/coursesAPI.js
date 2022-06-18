@@ -1,15 +1,16 @@
 import { $authHost, $host } from "./index";
-import jwt_decode from "jwt-decode";
 
-// получение всех и одного
+// get courses
 export const fetchCourses = async (
+  isModerated = false,
   occupationId,
   authorId,
   page = 1,
   limit = 10
 ) => {
-  const { data } = await $host.get("api/card", {
+  const { data } = await $host.get("api/course", {
     params: {
+      isModerated,
       occupationId,
       authorId,
       page,
@@ -20,67 +21,33 @@ export const fetchCourses = async (
 };
 
 export const fetchCourse = async (id) => {
-  const { data } = await $host.get("api/card/" + id);
+  const { data } = await $host.get("api/course/" + id);
   return data;
 };
 
-export const fetchDevices = async (
-  occupationId,
-  authorId,
-  page = 1,
-  limit = 10
-) => {
-  const { data } = await $host.get("api/card", {
-    params: {
-      occupationId,
-      authorId,
-      page,
-      limit,
-    },
-  });
-  return data;
-};
-
-// ready
-export const fetchOneDevice = async (id) => {
-  const { data } = await $host.get("api/card/" + id);
-  return data;
-};
-
-// создаие товара
+// create course
 export const createCourse = async (course) => {
-  const { data } = await $authHost.post("api/card", course);
+  const { data } = await $authHost.post("api/course", course);
   return data;
 };
 
-// ready
-export const createDevice = async (course) => {
-  const { data } = await $authHost.post("api/card", course); // ready
-  return data;
-};
-
-// обновление курса
+// update course
 export const updateCourse = async (updateCourse) => {
-  const { data } = await $authHost.put("api/card/", updateCourse);
+  const { data } = await $authHost.put("api/course/", updateCourse);
   return data;
 };
 
-// удаление курса
-export const deleteCourse = async (course_id) => {
-  const { data } = await $authHost.delete("api/card/" + course_id);
+// remove course
+export const deleteCourse = async (id) => {
+  const { data } = await $authHost.delete("api/course/" + id);
   return data;
 };
 
-// ready
 export const createType = async (occupation) => {
   const { data } = await $authHost.post("api/occupation", occupation);
   return data;
 };
-// ready
-export const fetchTypes = async () => {
-  const { data } = await $host.get("api/occupation");
-  return data;
-};
+
 export const fetchOccupations = async () => {
   const { data } = await $host.get("api/occupation");
   return data;

@@ -1,9 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import "./Header.css";
+import { useNavigate } from "react-router-dom";
+import { useDisplayImage, useCustomContext } from "../../Hooks";
 
-import { Context } from "../../index.js";
-import { CATALOG_ROUTE } from "../../Utils/consts.js";
+import "./AddCourse.css";
+
+import { COURSE_CATALOG_FULL_ROUTE } from "../../Utils/consts.js";
 import {
   createCourse,
   fetchCourses,
@@ -13,8 +14,8 @@ import {
 import { Card, Button, Modal, Row, Col, Form } from "react-bootstrap";
 
 const AddCourse = ({ show, onHide }) => {
-  const { course } = useContext(Context);
-  const history = useHistory();
+  const { course, user } = useCustomContext();
+  const navigate = useNavigate();
 
   const [author, setAuthor] = useState("");
   const [colorCard, setColorCard] = useState("#192534");
@@ -22,44 +23,30 @@ const AddCourse = ({ show, onHide }) => {
   const [urlCourse, setUrlCourse] = useState("");
   const [description, setDescription] = useState("");
   const [occupation, setOccupation] = useState("");
-
   const [image, setImage] = useState(null);
-  const imageRef = React.useRef(null);
-
-  useEffect(() => {
-    fetchOccupations().then((data) => course.setOccupations(data));
-  }, []);
-
-  const useDisplayImage = () => {
-    const [result, setResult] = React.useState("");
-    const uploader = (e) => {
-      const imageFile = e.target.files[0];
-      const reader = new FileReader();
-      reader.addEventListener("load", (e) => {
-        setResult(e.target.result);
-      });
-      reader.readAsDataURL(imageFile);
-    };
-
-    return { result, uploader };
-  };
 
   const { result, uploader } = useDisplayImage();
 
+  useEffect(() => {
+    fetchOccupations().then((data) => {
+      course.setOccupations(data);
+    });
+  }, []);
+
   const addCourse = () => {
     const formData = new FormData();
-    formData.append("author", author);
     formData.append("name", name);
     formData.append("description", description);
     formData.append("course_url", urlCourse);
     formData.append("fone", colorCard);
     formData.append("image", image);
-    // formData.append('courseAuthorId', course.selectedAuthor.id)
     formData.append("occupation", occupation);
+    formData.append("author", author);
+    // formData.append("publicator", author);
 
-    createCourse(formData).then((data) => {
+    createCourse(formData).then(() => {
       fetchCourses().then((data) => course.setCourseData(data.rows));
-      history.push(CATALOG_ROUTE);
+      navigate(COURSE_CATALOG_FULL_ROUTE);
       onHide();
     });
   };
@@ -83,18 +70,20 @@ const AddCourse = ({ show, onHide }) => {
                 Create course
               </Form.Label>
               <Row>
-                <Col className="pl-2">
+                <Col className="ps-2">
                   <Form.Control
                     className="card-form"
                     type="text"
+                    name="author"
                     placeholder="Enter author"
+                    required
                     value={author}
                     onChange={(e) => setAuthor(e.target.value)}
                   />
                 </Col>
                 <Col>
                   <Form.Control
-                    className="ml-auto p-0"
+                    className="ms-auto p-0"
                     type="color"
                     id="favcolor"
                     name="favcolor"
@@ -112,6 +101,7 @@ const AddCourse = ({ show, onHide }) => {
                   name="image"
                   label="Paste or select image"
                   accept="image/*"
+                  required
                   onChange={(e) => {
                     setImage(e.target.files[0]);
                     uploader(e);
@@ -120,15 +110,14 @@ const AddCourse = ({ show, onHide }) => {
               </Form.Group>
             </Card.Header>
 
-            {result && (
-              <Card.Img ref={imageRef} src={result} alt="Image of course" />
-            )}
+            {result && <Card.Img src={result} alt="Image of course" />}
             <Card.Body>
               <Card.Title className="mb-2">
                 <Form.Control
                   className="card-form"
                   type="name"
                   placeholder="Enter name of course"
+                  required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -136,14 +125,15 @@ const AddCourse = ({ show, onHide }) => {
 
               <Row>
                 <Col>
-                  <Card.Text className="pl-2 my-2">Link:</Card.Text>
+                  <Card.Text className="ps-2 my-2">Link:</Card.Text>
                 </Col>
                 <Col>
                   <Form.Control
                     className="card-form"
                     type="text"
-                    placeholder="Enter url"
                     name="url"
+                    placeholder="Enter url"
+                    required
                     value={urlCourse}
                     onChange={(e) => setUrlCourse(e.target.value)}
                   />
@@ -151,24 +141,26 @@ const AddCourse = ({ show, onHide }) => {
               </Row>
               <Form.Control
                 as="textarea"
-                className="card-form"
-                placeholder="Enter description"
+                className="card-form mb-2"
                 name="description"
+                placeholder="Enter description"
+                required
                 style={{ minHeight: 120 }}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
               <Form.Control
-                className="card-form"
-                list="searchList"
-                placeholder="Enter occupation"
+                className="card-form mb-2"
                 name="description"
+                placeholder="Укажите профессию"
+                required
+                list="searchList"
                 value={occupation}
                 onChange={(e) => setOccupation(e.target.value)}
               />
-              <datalist id="searchList">
-                {course.occupations.map((item, index) => {
-                  <option key={index}>{item}</option>;
+              <datalist className="mb-2" id="searchList">
+                {course.occupations.map((item) => {
+                  return <option key={item.id}>{item.name}</option>;
                 })}
               </datalist>
 

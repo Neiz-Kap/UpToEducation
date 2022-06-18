@@ -13,13 +13,13 @@ const User = sequelize.define("user", {
 // без внешних ключей
 const Course = sequelize.define("course", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  author: { type: DataTypes.STRING, allowNull: false },
   name: { type: DataTypes.STRING, allowNull: false },
   description: { type: DataTypes.STRING, allowNull: false },
   course_url: { type: DataTypes.STRING, allowNull: false },
-  fone: { type: DataTypes.STRING },
-  image: { type: DataTypes.STRING },
-  publicator: { type: DataTypes.INTEGER },
+  fone: { type: DataTypes.STRING, allowNull: false },
+  image: { type: DataTypes.STRING, allowNull: false },
+  userId: { type: DataTypes.INTEGER },
+  isModerated: { type: DataTypes.BOOLEAN, defaultValue: false },
   // date_dev: { type: DataTypes.DATA }
   // rating
   // real_price
@@ -31,20 +31,20 @@ const ChoiseCourse = sequelize.define("choise_course", {
 
 // Table authors
 
-// // используя внешние ключи
-// const TagsCourse = sequelize.define('tags_courses', {
-//   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-//   // course_id
-//   // tag_id
-// });
+// используя внешние ключи
+const TagsCourse = sequelize.define("tags_course", {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  // course_id
+  // tag_id
+});
 
-// // без внешних ключей
-// const Tags = sequelize.define('tags', {
-//   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-//   name: { type: DataTypes.STRING, unique: true, allowNull: false },
-//   color: { type: DataTypes.STRING, allowNull: false },
-//   background_color: { type: DataTypes.STRING, allowNull: false },
-// });
+// без внешних ключей
+const Tag = sequelize.define("tag", {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  name: { type: DataTypes.STRING, unique: true, allowNull: false },
+  color: { type: DataTypes.STRING, allowNull: false },
+  background_color: { type: DataTypes.STRING, allowNull: false },
+});
 
 const Occupation = sequelize.define("occupation", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -62,14 +62,20 @@ const OccupationAuthor = sequelize.define("occupation_author", {
 
 // Publicator
 
-User.belongsToMany(Course, { through: ChoiseCourse });
-Course.belongsToMany(User, { through: ChoiseCourse });
+// User.belongsToMany(Course, { through: ChoiseCourse });
+// Course.belongsToMany(User, { through: ChoiseCourse });
 
-// Courses.hasMany(TagsCourse);
-// TagsCourse.belongsTo(Courses);
+User.hasMany(ChoiseCourse);
+ChoiseCourse.belongsTo(User);
 
-// TagsCourse.hasOne(Tags);
-// Tags.belongsTo(TagsCourse);
+Course.hasMany(ChoiseCourse);
+ChoiseCourse.belongsTo(Course);
+
+User.hasMany(Course);
+Course.belongsTo(User);
+
+Course.belongsToMany(Tag, { through: TagsCourse });
+Tag.belongsToMany(Course, { through: TagsCourse });
 
 Occupation.hasMany(Course);
 Course.belongsTo(Occupation);
@@ -87,6 +93,6 @@ module.exports = {
   Occupation,
   CourseAuthor,
   OccupationAuthor,
-  // TagsCourse,
-  // Tags
+  TagsCourse,
+  Tag,
 };

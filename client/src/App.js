@@ -1,13 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
-import { AppRoutes, Header, SideBar } from "./Components";
+import {
+  AppRoutes,
+  Header,
+  SideBar,
+  ErrorBoundary,
+  FallbackComponent,
+} from "./Components";
 import { observer } from "mobx-react-lite";
-import { Context } from "./index";
 import { check } from "./HTTP/userAPI";
 import loader from "./Assets/icons/loader.svg";
+import { useCustomContext } from "./Hooks";
 
 const App = observer(() => {
-  const { user } = useContext(Context);
+  const { user } = useCustomContext();
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -29,11 +35,13 @@ const App = observer(() => {
 
   return (
     <BrowserRouter>
-      <SideBar />
-      <Header />
-      <main className="c">
-        <AppRoutes />
-      </main>
+      <ErrorBoundary FallbackComponent={FallbackComponent}>
+        <SideBar />
+        <Header />
+        <main className="c">
+          <AppRoutes />
+        </main>
+      </ErrorBoundary>
     </BrowserRouter>
   );
 });

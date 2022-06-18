@@ -1,29 +1,21 @@
-import React, { useContext } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom'
-import { Container } from 'react-bootstrap';
-import { authRoutes, publicRoutes } from "../routes";
-import { COURSE_ROUTE, CATALOG_ROUTE } from "../Utils/consts";
-import { Context } from "../index";
+import React from "react";
 import { observer } from "mobx-react-lite";
+import { Routes, Route, Navigate, useRoutes } from "react-router-dom";
+import { routes } from "../routes";
+import { Container } from "react-bootstrap";
+import { COURSE_ROUTE, COURSE_CATALOG_FULL_ROUTE } from "../Utils/consts";
+import { useCustomContext } from "./../Hooks";
 
 const AppRouter = observer(() => {
-  const { user } = useContext(Context);
-
+  const { user } = useCustomContext();
+  const isAuth = user.isAuth;
+  const isAdmin = user.user?.role === "ADMIN";
+  const pages = useRoutes(routes(isAuth, isAdmin));
   return (
-    <Container className="fixed_container content__container mt-3">
-      <Switch>
-        {user.isAuth && authRoutes.map(({ path, Component }) =>
-          <Route key={path} path={path} component={Component} exact />)}
-        {publicRoutes.map(({ path, Component }) =>
-          <Route key={path} path={path} component={Component} exact />
-        )}
-        <Route exact path={COURSE_ROUTE}>
-          <Redirect to={CATALOG_ROUTE} />
-        </Route>
-        <Redirect to={CATALOG_ROUTE} />
-      </Switch>
+    <Container className="fixed_container content__container">
+      {pages}
     </Container>
   );
-})
+});
 
 export default AppRouter;

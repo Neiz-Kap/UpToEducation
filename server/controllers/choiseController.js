@@ -1,82 +1,73 @@
-const { ChoiseCourse, Course } = require('../models/models');
+const { ChoiseCourse, Course } = require("../models/models");
+const ApiError = require("../error/ApiError");
 
 class ChoiseController {
-
   async getAll(req, res) {
-    const { user_id } = req.body;
-    const choisesCourses = await Course.findAll({
-      include: {
-        model: ChoiseCourse,
-        where: { choiseChoiseId: user_id }
-      }
-    });
-    console.log(`choisesCourses: ${res.json(choisesCourses)}`);
-    return res.json(choisesCourses);
-    //         const choisesCourses = await ChoiseCourse.findAll({where: {user_id: choiseChoiseId}}, {raw: true}).map(course_id => {
-    //             Course.findOne({where: {course_id}});
-    //             const course = await Course.getById(req.body.id);
-    //         });
-
-  }
-
-  async createOne(req, res) {
-    const { user_id, course_id } = req.body;
-    const choiseCourse = await ChoiseCourse.create({ user_id: choiseChoiseId, course_id });
-    return res.json(choiseCourse);
-  }
-
-  async deleteOne(req, res) { }
-}
-
-module.exports = new ChoiseController()
-/*
-class BasketController{
-
-  async add(req,res){
-    try{
-      const{deviceId, basketId, info} = req.body
-      const basketdevice = await BasketDevice.create({deviceId, basketId})
-
-      if (info) {
-        info = JSON.parse(info)
-        info.forEach(i =>
-        DeviceInfo.create({
-          title: i.title,
-          description: i.description,
-          deviceId: device.id
-        })
-        )
-      }
-      return res.json(basketdevice)
-    } catch(e){
-      next(ApiError.badRequest(e.message))
+    try {
+      let choisesCourses = await ChoiseCourse.findAll({
+        attributes: [],
+        where: { userId: req.user.id },
+        // include: Course,
+        include: [
+          {
+            model: Course,
+            as: "course",
+            required: true,
+          },
+        ],
+      });
+      choisesCourses = choisesCourses.map((course) => course.course);
+      return res.json(choisesCourses);
+    } catch (e) {
+      console.log(`error: ${e.message}`);
     }
   }
 
-  async getOne(req,res){
-    const {id} = req.params
-    const basketinfo = await BasketDevice.findOne(
-      {
-        where: {id}, //условие по которому нужно искать девайс
-        include: [{model: DeviceInfo, as: 'info'}] //так же получаем массив характеристик
-      },
-    )
-    return res.json(basketinfo)
+  async createOne(req, res, next) {
+    try {
+      const { courseId } = req.body;
+
+      const findCourse = await Course.findOne({ where: { id: courseId } });
+      if (!findCourse) {
+        return next(ApiError.badRequest("Курса, с текущим id, не существует!"));
+      }
+
+      const choiseCourse = await ChoiseCourse.create({
+        userId: req.user.id,
+        courseId,
+      });
+      return res.json(choiseCourse);
+    } catch (error) {
+      console.log(`error: ${error.message}`);
+    }
   }
 
-  async getAll(req,res){
-    const baskets = await BasketDevice.findAll()
-    return res.json(baskets)
-  }
+  async deleteOne(req, res, next) {
+    const { courseId } = req.body;
 
-  async delete(req,res){
-    const{id} = req.params
-    const basket = await BasketDevice.destroy(
-      {
-        where:{id}
+    const choiseCourse = await ChoiseCourse.findOne({
+      where: {
+        userId: req.user.id,
+        courseId,
       },
-    )
-    return res.json("basket device deleted")
+    });
+    if (!choiseCourse) {
+      return next(
+        ApiError.badRequest(
+          "На этом аккаунте нет такого избранного курса с этим id!"
+        )
+      );
+    }
+
+    const deleteChoiseCourse = await ChoiseCourse.destroy({
+      where: {
+        userId: req.user.id,
+        courseId,
+      },
+    });
+
+    return res.json(deleteChoiseCourse);
   }
 }
-module.exports = new BasketController()*/
+
+module.exports = new ChoiseController();

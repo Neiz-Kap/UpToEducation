@@ -14,7 +14,7 @@ import {
 } from "../../HTTP/coursesAPI.js";
 
 import { Col, Card, OverlayTrigger, Popover } from "react-bootstrap";
-import AddCourse from "../Header/AddCourse";
+import AddCourse from "../AddCourse/AddCourse";
 
 import edit from "../../Assets/cardIcons/edit.svg";
 import star from "../../Assets/cardIcons/star.svg";
@@ -23,7 +23,8 @@ import more from "../../Assets/cardIcons/more.svg";
 import share from "../../Assets/cardIcons/share.svg";
 import comment from "../../Assets/cardIcons/comment.svg";
 import { COURSE_ROUTE, SERVER_LINK } from "../../Utils/consts";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
+import { getUrl } from "./../../Utils/helpers";
 
 // Альтернативный вариант карточки
 // https://www.youtube.com/channel/UCbwXnUipZsLfUckBPsC7Jog/community?lb=UgkxeXByOWLPygBXbtF7-J98QEdiOPCR4hep
@@ -31,7 +32,7 @@ import { useHistory } from "react-router";
 const CourseCard = observer((props) => {
   const { user } = useContext(Context);
   const { course } = useContext(Context);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [lgShow, setLgShow] = useState(false);
   const [dataCourse, setDataCourse] = useState({});
 
@@ -39,7 +40,7 @@ const CourseCard = observer((props) => {
   let urlCourse = props.course_url.includes("http://", 0)
     ? props.course_url
     : `https://${props.course_url}`;
-  let imageUrl = `http://localhost:8888/${props.image}`;
+  let imageUrl = `${SERVER_LINK}/${props.image}`;
 
   const getDataToModal = () => {
     setLgShow(true);
@@ -59,14 +60,16 @@ const CourseCard = observer((props) => {
 
   const copyLink = () => {
     let id = props.id;
-    navigator.clipboard.writeText(SERVER_LINK + COURSE_ROUTE + id);
+    navigator.clipboard.writeText(
+      getUrl([SERVER_LINK, COURSE_ROUTE, "/", id], false)
+    );
   };
 
   return (
-    <Col xs={12} sm={6} lg={4} className="mb-4">
+    <Col xs={12} sm={6} lg={4} xxl={3}>
       <Card className="content-card" style={{ backgroundColor: realFone }}>
         <Card.Header className="content-card-header d-flex justify-content-between align-items-center">
-          {props.id}) {props.author}
+          {user.user.role === "ADMIN" && props.id}) [{props.author}]
           {user.isAuth && (
             <div className="card__buttons w-100 d-flex justify-content-between">
               <button className="card__button remove" type="button">
@@ -80,7 +83,7 @@ const CourseCard = observer((props) => {
                 <img src={star} alt="add" />
               </button>
 
-              <OverlayTrigger
+              {/* <OverlayTrigger
                 trigger="click"
                 placement="bottom"
                 overlay={
@@ -121,7 +124,7 @@ const CourseCard = observer((props) => {
                 <button className="card__button more" type="button">
                   <img src={more} alt="more" />
                 </button>
-              </OverlayTrigger>
+              </OverlayTrigger> */}
             </div>
           )}
         </Card.Header>
@@ -129,7 +132,7 @@ const CourseCard = observer((props) => {
         <Card.Img
           src={imageUrl}
           alt="Изображение курса"
-          onClick={() => history.push(COURSE_ROUTE + props.id)}
+          onClick={() => navigate(getUrl([COURSE_ROUTE, "/", props.id], false))}
           style={{ cursor: "pointer" }}
         />
         {/*             <input type="checkbox" className="read-more-checker" id={`read-more-checker-${props.id}`} />*/}
@@ -139,7 +142,7 @@ const CourseCard = observer((props) => {
             Ссылка:
             <Card.Link
               href={urlCourse}
-              className="d-block ml-1"
+              className="d-block ms-1"
               target="_blank"
             >
               Начать изучение курса
@@ -150,9 +153,11 @@ const CourseCard = observer((props) => {
           </Card.Text>
           {/* <div className="card-body-bottom"></div>*/}
         </Card.Body>
-        <Card.Button onClick={() => history.push(COURSE_ROUTE + props.id)}>
+        {/* <Card.Button
+          onClick={() => navigate(getUrl([COURSE_ROUTE, "/", props.id]))}
+        >
           Подробнее
-        </Card.Button>
+        </Card.Button> */}
         {/* <label htmlFor={`read-more-checker-${props.id}`} className="read-more-button"></label>*/}
       </Card>
     </Col>
