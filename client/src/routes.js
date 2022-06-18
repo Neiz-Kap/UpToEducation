@@ -6,6 +6,7 @@ import {
   MY_COURSES_ROUTE,
   COURSE_CATALOG_FULL_ROUTE,
   // Info for user Routes
+  INFO_FULL_ROUTE,
   INFO_ROUTE,
   DEVELOP_ROUTE,
   FAQ_ROUTE,
@@ -17,6 +18,7 @@ import {
   // Admin Routes
   ADMIN_ROUTE,
   ADMIN_COURSES_ROUTE,
+  ADMIN_COURSES_FULL_ROUTE,
 } from "./Utils/consts.js";
 
 import { Navigate } from "react-router-dom";
@@ -54,6 +56,10 @@ export const routes = (isAuth, isAdmin) => {
       element: isAdmin ? <AdminPage /> : <NotAccess />,
       children: [
         {
+          path: "",
+          element: <Navigate to={ADMIN_COURSES_FULL_ROUTE} replace />,
+        },
+        {
           path: ADMIN_COURSES_ROUTE,
           element: isAdmin ? <UnmoderCoursesPage /> : <NotAccess />,
         },
@@ -82,6 +88,10 @@ export const routes = (isAuth, isAdmin) => {
       path: INFO_ROUTE,
       element: <ForUserPage />,
       children: [
+        {
+          path: "",
+          element: <Navigate to={INFO_FULL_ROUTE} replace />,
+        },
         {
           path: "info",
           element: <InfoPage />,
