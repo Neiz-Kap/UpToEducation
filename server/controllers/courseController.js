@@ -6,62 +6,71 @@ const path = require("path");
 
 const fs = require("fs");
 
-// const createCourseAuthor = (author) => {
-//   let courseAuthor = await CourseAuthor.findOne({ where: { name: author } })
-//   if (!course_author) {
-//     courseAuthor = await CourseAuthor.create({ name: author })
-//   }
-
-//   return courseAuthor.id;
-// }
-
-// const createOccupation = (occupation) => {
-//   let occupationFromDB = await Occupation.findOne({ where: { name: occupation } })
-//   if (!occupationFromDB) {
-//     occupationFromDB = await Occupation.create({ name: occupation })
-//   }
-
-//   return occupationFromDB.id;
-// }
-
 class CourseController {
   async getAll(req, res) {
-    let { isModerated, occupationId, authorId, page, limit } = req.query;
-    page = page || 1;
-    limit = limit || 12;
+    try {
+      let { isModerated, occupationId, authorId, page, limit } = req.query;
 
-    let offset = limit * (page - 1);
+      page = page || 1;
+      limit = limit || 12;
 
-    let courses;
-    let condition = {};
-    if (occupationId && !authorId) condition = { occupationId };
-    if (!occupationId && authorId) condition = { authorId };
-    if (occupationId && authorId) condition = { authorId, occupationId };
-    condition = { ...condition, isModerated };
-    courses = await Course.findAndCountAll({ where: condition, limit, offset });
+      let offset = limit * (page - 1);
 
-    for (let course of courses) {
-      course.author = await CourseAuthor.findOne({ where: { authorId } }); //
-      course.occupation = await Occupation.findOne({ where: { occupationId } }); //
+      let courses;
+      let condition = {};
+      if (occupationId && !authorId) condition = { occupationId };
+      if (!occupationId && authorId) condition = { authorId };
+      if (occupationId && authorId) condition = { authorId, occupationId };
+      if (isModerated !== undefined) condition = { ...condition, isModerated };
+      courses = await Course.findAndCountAll({
+        where: condition,
+        limit,
+        offset,
+        include: [
+          {
+            model: CourseAuthor,
+          },
+          { model: Occupation },
+        ],
+      });
+
+      return res.json(courses);
+    } catch (error) {
+      console.log(`error: ${error.message}`);
     }
-
-    return res.json(courses);
   }
 
   async getOne(req, res, next) {
-    const { course_id } = req.params;
-    const course = await Course.findByPk(course_id);
+    const { id } = req.params;
+    // const course = await Course.findByPk(id);
+    const course = await Course.findOne({
+      where: { id },
+      include: [
+        {
+          model: CourseAuthor,
+        },
+        { model: Occupation },
+      ],
+    });
     if (!course) return next(ApiError.badRequest("Курс с таким id не найден"));
 
-    // надо найти id автора и профессии и припихнуть к course author и occupation
     return res.json(course);
   }
 
   async createOne(req, res, next) {
     try {
-      const { name, description, course_url, fone, author, occupation } =
-        req.body;
+      let {
+        name,
+        description,
+        course_url,
+        fone,
+        author,
+        occupation,
+        isModerated,
+      } = req.body;
+
       fone = fone || "#192534";
+      isModerated = isModerated || false;
       const { image } = req.files;
 
       // 			 вот бы реализовать проверку на наличие уже имеющийся фотки
@@ -70,28 +79,19 @@ class CourseController {
       let fileName = uuid.v4() + ".jpg";
       image.mv(path.resolve(__dirname, "..", "static", fileName));
 
-      let courseAuthorFromDB = await CourseAuthor.findOne({
+      // findOrCreate id from CourseAuthor and Occupation tables
+      let courseAuthorFromDB = await CourseAuthor.findOrCreate({
         where: { name: author },
       });
-      if (!courseAuthorFromDB) {
-        // создаём нового автора, если не нашли его в бд
-        courseAuthorFromDB = await CourseAuthor.create({ name: author });
-      }
 
-      let occupationFromDB = await Occupation.findOne({
+      let occupationFromDB = await Occupation.findOrCreate({
         where: { name: occupation },
       });
-      if (!occupationFromDB) {
-        // создаём новую профессию, если не нашли её в бд
-        occupationFromDB = await Occupation.create({ name: occupation });
-      }
 
       let courseAuthorId = courseAuthorFromDB.id;
       let occupationId = occupationFromDB.id;
-      console.log(`courseAuthorId`, courseAuthorId);
-      console.log(`occupationId`, occupationId);
 
-      const course = await Course.create({
+      let course = await Course.create({
         author,
         name,
         description,
@@ -101,64 +101,69 @@ class CourseController {
         courseAuthorId,
         occupationId,
         isModerated,
+        userId: req.user.id,
       });
       return res.json(course);
     } catch (e) {
-      next(ApiError.badRequest(e.message));
+      return next(ApiError.badRequest(e.message));
     }
   }
 
   async editOne(req, res, next) {
-    const course = req.body;
-    if (!course.course_id)
-      // а точно course_id ?!
-      return next(ApiError.badRequest("Курс с таким id не найден"));
-    const updatedCourse = await Course.findByIdAndUpdate(
-      course.course_id,
-      course,
-      { new: true }
-    );
-    return res.json(updatedCourse);
+    try {
+      const { id } = req.body;
+      if (!id) {
+        return next(ApiError.badRequest("Вы не отправили id!"));
+      }
+      let course = await Course.findByPk(id);
+      if (!course)
+        return next(ApiError.badRequest("Курс с таким id не найден"));
+
+      course = await Course.update(req.body, { where: { id } });
+      return res.json(course);
+    } catch (error) {
+      console.log(`error: ${error.message}`);
+    }
   }
 
-  async deleteOne(req, res) {
+  async deleteOne(req, res, next) {
     try {
-      const { course_id } = req.params;
-      await Course.findOne({ where: { course_id } }).then((image) => {
-        const filePath = image.image;
-        console.log(filePath);
-        //                 https://arjunphp.com/how-to-delete-a-file-in-node-js/
-        fs.access(filePath, (err) => {
-          if (!err) {
-            fs.unlink(filePath, (err) => console.log(err));
-          } else {
-            console.log(err);
+      const { id } = req.params;
+      await Course.findOne({ where: { id } })
+        .then(({ image }) => {
+          if (!image) {
+            fs.rm(path.resolve(__dirname, "..", "static", image), (err) => {
+              if (err) {
+                // return next(ApiError.internal(err.message));
+                console.log(err.message);
+              }
+            });
           }
+        })
+        .catch((err) => {
+          return next(ApiError.internal(`Такого курса не существует!`));
         });
-      });
+      const course = await Course.destroy({ where: { id } });
 
-      const course = await Course.destroy({ where: { course_id } });
-
+      // ПРОТЕСТИРОВАТЬ ВСЁ НИЖЕ
       // delete courseAuthor and occupation
-      const courseAuthorKey = course.courseAuthorId;
-      const occupationKey = course.occupationId;
 
-      let otherCoursesWith = await Course.findOne({
-        where: { courseAuthorId: courseAuthorKey },
+      let сoursesWithCondition = await Course.findOne({
+        where: { courseAuthorId: course.courseAuthorId },
       });
-      if (!otherCourses) {
+      if (!сoursesWithCondition) {
         let courseAuthor = await CourseAuthor.destroy({
-          where: { id: courseAuthorKey },
+          where: { id: course.courseAuthorId },
         });
         console.log(`Удалён courseAuthor: ${courseAuthor}`);
       }
 
-      otherCoursesWith = await Course.findOne({
-        where: { occupationId: occupationKey },
+      сoursesWithCondition = await Course.findOne({
+        where: { occupationId: course.occupationId },
       });
-      if (!otherCourses) {
+      if (!сoursesWithCondition) {
         let occupation = await Occupation.destroy({
-          where: { id: occupationKey },
+          where: { id: course.occupationId },
         });
         console.log(`Удалён occupation: ${occupation}`);
       }

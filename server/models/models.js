@@ -18,7 +18,7 @@ const Course = sequelize.define("course", {
   course_url: { type: DataTypes.STRING, allowNull: false },
   fone: { type: DataTypes.STRING, allowNull: false },
   image: { type: DataTypes.STRING, allowNull: false },
-  publicator: { type: DataTypes.INTEGER },
+  userId: { type: DataTypes.INTEGER },
   isModerated: { type: DataTypes.BOOLEAN, defaultValue: false },
   // date_dev: { type: DataTypes.DATA }
   // rating
@@ -62,8 +62,17 @@ const OccupationAuthor = sequelize.define("occupation_author", {
 
 // Publicator
 
-User.belongsToMany(Course, { through: ChoiseCourse });
-Course.belongsToMany(User, { through: ChoiseCourse });
+// User.belongsToMany(Course, { through: ChoiseCourse });
+// Course.belongsToMany(User, { through: ChoiseCourse });
+
+User.hasMany(ChoiseCourse);
+ChoiseCourse.belongsTo(User);
+
+Course.hasMany(ChoiseCourse);
+ChoiseCourse.belongsTo(Course);
+
+User.hasMany(Course);
+Course.belongsTo(User);
 
 Course.belongsToMany(Tag, { through: TagsCourse });
 Tag.belongsToMany(Course, { through: TagsCourse });
