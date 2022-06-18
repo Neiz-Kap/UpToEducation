@@ -3,10 +3,10 @@ import Modal from "react-bootstrap/Modal";
 import { Button, Dropdown, Form, Row, Col } from "react-bootstrap";
 import { Context } from "../../index";
 import {
-  createDevice,
+  createCourse,
   fetchBrands,
-  fetchDevices,
-  fetchTypes,
+  fetchCourses,
+  fetchOccupations,
 } from "../../HTTP/coursesAPI";
 import { observer } from "mobx-react-lite";
 
@@ -18,7 +18,7 @@ const CreateDevice = observer(({ show, onHide }) => {
   const [info, setInfo] = useState([]);
 
   useEffect(() => {
-    fetchTypes().then((data) => course.setOccupations(data));
+    fetchOccupations().then((data) => course.setOccupations(data));
     fetchBrands().then((data) => course.setAuthors(data));
   }, []);
 
@@ -46,7 +46,7 @@ const CreateDevice = observer(({ show, onHide }) => {
     formData.append("brandId", course.selectedAuthor.id);
     formData.append("typeId", course.selectedOccupation.id);
     formData.append("info", JSON.stringify(info));
-    createDevice(formData).then((data) => onHide());
+    createCourse(formData).then((data) => onHide());
   };
 
   return (
