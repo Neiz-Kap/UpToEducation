@@ -14,8 +14,8 @@ const UnmoderCoursesPage = observer(() => {
   }, []);
   return (
     <section className="content__section">
-      <h1>Unmoderated Courses</h1>
-      <Row className="content content--sorting-list g-2">
+      <h2>Unmoderated Courses</h2>
+      <Row className="content content--sorting-list g-3">
         {course.unmoderatedCourseData.map(
           ({ id, author, name, description, image, course_url, fone }) => (
             <CourseCard

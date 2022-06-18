@@ -3,7 +3,7 @@ import React from "react";
 const DevelopPage = () => {
   return (
     <section className="content__section">
-      <h1>Develop</h1>
+      <h2>Develop</h2>
       Дипломный проект разработан Мехедовым Иваном
       <br />
       <div className="mt-3 d-flex justify-content-around">
