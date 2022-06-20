@@ -14,7 +14,7 @@ export const createChoiseCourse = async (courseId) => {
 
 export const deleteChoiseCourse = async (courseId) => {
   const { data } = await $authHost.delete("api/choiseCourse/", {
-    courseId,
+    data: { courseId },
   });
   return data;
 };

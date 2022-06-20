@@ -7,6 +7,6 @@ router.get("/:id", courseController.getOne);
 router.get("/", courseController.getAll);
 router.post("/", authMiddleware, courseController.createOne);
 router.put("/", authMiddleware, courseController.editOne);
-router.delete("/:id", authMiddleware, courseController.deleteOne);
+router.delete("/", authMiddleware, courseController.deleteOne);
 
 module.exports = router;

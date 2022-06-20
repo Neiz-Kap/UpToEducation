@@ -1,6 +1,5 @@
 import React from "react";
 import { Row } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
 
 import { MY_COURSES_FULL_ROUTE } from "./../../Utils/consts";
 import CourseCard from "./CourseCard";
@@ -13,9 +12,6 @@ const CourseList = ({
   countPlaceholder = 4,
   altText,
 }) => {
-  const location = useLocation();
-  console.log(`list: ${JSON.stringify(list, null, 2)}`);
-
   const renderCoursePlaceholder = () => {
     let menuItems = [];
     for (var i = 0; i < countPlaceholder; i++) {
@@ -51,7 +47,7 @@ const CourseList = ({
             />
           )
         )}
-      {!isLoading && !list && altText && <p>{altText}</p>}
+      {!isLoading && list.length === 0 && altText && <p>{altText}</p>}
       {isLoading && renderCoursePlaceholder()}
     </Row>
   );

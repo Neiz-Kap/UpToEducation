@@ -52,7 +52,16 @@ class ChoiseController {
         );
       }
 
-      const choiseCourse = await ChoiseCourse.create({
+      let choiseCourse = await ChoiseCourse.findOne({
+        userId: req.user.id,
+        courseId,
+      });
+      if (choiseCourse) {
+        return next(
+          ApiError.internal("Такой курс уже есть у вас на странице Избранное!")
+        );
+      }
+      choiseCourse = await ChoiseCourse.create({
         userId: req.user.id,
         courseId,
       });

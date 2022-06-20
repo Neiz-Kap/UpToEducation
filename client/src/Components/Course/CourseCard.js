@@ -1,9 +1,15 @@
 import React, { useState, useContext } from "react";
 import { observer } from "mobx-react-lite";
+import { useNavigate, useLocation } from "react-router";
+
 import "./CourseCard.css";
 
 import { useCustomContext } from "../../Hooks";
 
+import {
+  createChoiseCourse,
+  deleteChoiseCourse,
+} from "../../HTTP/choiseCoursesAPI.js";
 import {
   fetchCourses,
   fetchCourse,
@@ -11,7 +17,6 @@ import {
   updateCourse,
   createCourse,
 } from "../../HTTP/coursesAPI.js";
-import {createChoiseCourse} from "../../HTTP/choiseCoursesAPI.js";
 
 import { Col, Card, OverlayTrigger, Popover } from "react-bootstrap";
 import AddCourse from "../AddCourse/AddCourse";
@@ -22,8 +27,12 @@ import remove from "../../Assets/cardIcons/delete.svg";
 import more from "../../Assets/cardIcons/more.svg";
 import share from "../../Assets/cardIcons/share.svg";
 import comment from "../../Assets/cardIcons/comment.svg";
-import { COURSE_ROUTE, SERVER_LINK } from "../../Utils/consts";
-import { useNavigate } from "react-router";
+
+import {
+  COURSE_ROUTE,
+  CHOISE_COURSES_FULL_ROUTE,
+  SERVER_LINK,
+} from "../../Utils/consts";
 import { getUrl } from "./../../Utils/helpers";
 
 // Альтернативный вариант карточки
@@ -31,6 +40,7 @@ import { getUrl } from "./../../Utils/helpers";
 
 const CourseCard = observer((props) => {
   const { user, course } = useCustomContext();
+  const location = useLocation();
   const navigate = useNavigate();
   const [lgShow, setLgShow] = useState(false);
   const [dataCourse, setDataCourse] = useState({});
@@ -57,8 +67,15 @@ const CourseCard = observer((props) => {
     console.log(`Перерисовка страницы`);
   };
 
-  const addCourseToChoise = () => {
-    createChoiseCourse(props.id);
+  const interactCourseToChoise = () => {
+    if (location.pathname === CHOISE_COURSES_FULL_ROUTE) {
+      console.log(`Ща удаление должно быть`);
+      deleteChoiseCourse(props.id);
+    } else {
+      createChoiseCourse(props.id).catch((err) =>
+        alert(err.response.data.message)
+      );
+    }
   };
 
   const copyLink = () => {
@@ -85,7 +102,7 @@ const CourseCard = observer((props) => {
               <button
                 className="card__button star added"
                 type="button"
-                onClick={addCourseToChoise}
+                onClick={interactCourseToChoise}
               >
                 <img src={star} alt="add" />
               </button>
