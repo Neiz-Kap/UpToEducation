@@ -1,4 +1,10 @@
-const { ChoiseCourse, Course } = require("../models/models");
+const {
+  ChoiseCourse,
+  Course,
+  CourseAuthor,
+  Occupation,
+} = require("../models/models");
+
 const ApiError = require("../error/ApiError");
 
 class ChoiseController {
@@ -12,7 +18,14 @@ class ChoiseController {
           {
             model: Course,
             as: "course",
+            where: { isModerated: true },
             required: true,
+            include: [
+              {
+                model: CourseAuthor,
+              },
+              { model: Occupation },
+            ],
           },
         ],
       });
@@ -30,6 +43,13 @@ class ChoiseController {
       const findCourse = await Course.findOne({ where: { id: courseId } });
       if (!findCourse) {
         return next(ApiError.badRequest("Курса, с текущим id, не существует!"));
+      }
+      if (!findCourse.isModerated) {
+        return next(
+          ApiError.forbidden(
+            "Этот курс находится на модерации. Вы не можете добавить его в Избранное!"
+          )
+        );
       }
 
       const choiseCourse = await ChoiseCourse.create({

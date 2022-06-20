@@ -11,7 +11,7 @@ const AddCourseButton = () => {
     <Col xs={12} sm={6} lg={4} xxl={3}>
       <Card
         className="content-card"
-        style={{ backgroundColor: "transparent" }}
+        style={{ backgroundColor: "transparent", minHeight: 400 }}
         onClick={() => setLgShow(true)}
       >
         <Card.Body className="d-flex flex-column align-items-center justify-content-center">

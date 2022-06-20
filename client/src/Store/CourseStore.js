@@ -6,7 +6,8 @@ export default class CourseStore {
     this._authors = [];
     this._courseData = [];
     this._unmoderatedCourseData = [];
-    this._choiseCardData = [];
+    this._choiseCourseData = [];
+    this._addedCoursesData = [];
     this._selectedOccupation = {};
     this._selectedAuthor = {};
     this._page = 1;
@@ -29,8 +30,11 @@ export default class CourseStore {
     this._unmoderatedCourseData = data;
   }
 
-  setChoiseCardData(data) {
-    this._choiseCardData = data;
+  setChoiseCourseData(data) {
+    this._choiseCourseData = data;
+  }
+  setAddedCourseData(data) {
+    this._addedCoursesData = data;
   }
 
   setSelectedOccupation(type) {
@@ -60,6 +64,12 @@ export default class CourseStore {
   }
   get unmoderatedCourseData() {
     return this._unmoderatedCourseData;
+  }
+  get choiseCourseData() {
+    return this._choiseCourseData;
+  }
+  get addedCourseData() {
+    return this._addedCoursesData;
   }
 
   get selectedOccupation() {

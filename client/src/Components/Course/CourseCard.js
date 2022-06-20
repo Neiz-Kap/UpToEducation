@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { observer } from "mobx-react-lite";
 import "./CourseCard.css";
 
-import { Context } from "../../index.js";
+import { useCustomContext } from "../../Hooks";
 
 import {
   fetchCourses,
@@ -10,8 +10,8 @@ import {
   deleteCourse,
   updateCourse,
   createCourse,
-  createChoiseCourse,
 } from "../../HTTP/coursesAPI.js";
+import {createChoiseCourse} from "../../HTTP/choiseCoursesAPI.js";
 
 import { Col, Card, OverlayTrigger, Popover } from "react-bootstrap";
 import AddCourse from "../AddCourse/AddCourse";
@@ -30,8 +30,7 @@ import { getUrl } from "./../../Utils/helpers";
 // https://www.youtube.com/channel/UCbwXnUipZsLfUckBPsC7Jog/community?lb=UgkxeXByOWLPygBXbtF7-J98QEdiOPCR4hep
 
 const CourseCard = observer((props) => {
-  const { user } = useContext(Context);
-  const { course } = useContext(Context);
+  const { user, course } = useCustomContext();
   const navigate = useNavigate();
   const [lgShow, setLgShow] = useState(false);
   const [dataCourse, setDataCourse] = useState({});
@@ -58,6 +57,10 @@ const CourseCard = observer((props) => {
     console.log(`Перерисовка страницы`);
   };
 
+  const addCourseToChoise = () => {
+    createChoiseCourse(props.id);
+  };
+
   const copyLink = () => {
     let id = props.id;
     navigator.clipboard.writeText(
@@ -79,16 +82,20 @@ const CourseCard = observer((props) => {
                   onClick={(e) => removeCourse(e)}
                 />
               </button>
-              <button className="card__button star added" type="button">
+              <button
+                className="card__button star added"
+                type="button"
+                onClick={addCourseToChoise}
+              >
                 <img src={star} alt="add" />
               </button>
 
-              {/* <OverlayTrigger
+              <OverlayTrigger
                 trigger="click"
                 placement="bottom"
                 overlay={
                   <Popover>
-                    <Popover.Content
+                    <Popover.Body
                       className="card__popup"
                       style={{ backgroundColor: realFone }}
                     >
@@ -117,14 +124,14 @@ const CourseCard = observer((props) => {
                       <button className="card__button comment" type="button">
                         <img src={comment} alt="comment" />
                       </button>
-                    </Popover.Content>
+                    </Popover.Body>
                   </Popover>
                 }
               >
                 <button className="card__button more" type="button">
                   <img src={more} alt="more" />
                 </button>
-              </OverlayTrigger> */}
+              </OverlayTrigger>
             </div>
           )}
         </Card.Header>
