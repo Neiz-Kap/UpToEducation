@@ -27,10 +27,14 @@ import remove from "../../Assets/cardIcons/delete.svg";
 import more from "../../Assets/cardIcons/more.svg";
 import share from "../../Assets/cardIcons/share.svg";
 import comment from "../../Assets/cardIcons/comment.svg";
+import done from "../../Assets/admin/done.svg";
+import clear from "../../Assets/admin/clear.svg";
 
 import {
   COURSE_ROUTE,
+  COURSE_CATALOG_FULL_ROUTE,
   CHOISE_COURSES_FULL_ROUTE,
+  ADMIN_COURSES_FULL_ROUTE,
   SERVER_LINK,
 } from "../../Utils/consts";
 import { getUrl } from "./../../Utils/helpers";
@@ -56,17 +60,6 @@ const CourseCard = observer((props) => {
     fetchCourse(props.id).then((data) => setDataCourse(data));
   };
 
-  const removeCourse = (e) => {
-    deleteCourse(props.id);
-    console.log(`Курс с id ${props.id} удалён`);
-    try {
-      fetchCourses().then((data) => course.setCourseData(data.rows));
-    } catch (error) {
-      console.log(error.mesage);
-    }
-    console.log(`Перерисовка страницы`);
-  };
-
   const interactCourseToChoise = () => {
     if (location.pathname === CHOISE_COURSES_FULL_ROUTE) {
       console.log(`Ща удаление должно быть`);
@@ -76,6 +69,23 @@ const CourseCard = observer((props) => {
         alert(err.response.data.message)
       );
     }
+  };
+
+  const doneCourse = () => {
+    let courseObj = { id: props.id, isModerated: true };
+    updateCourse(courseObj).catch((err) =>
+      console.log(err.response.data.message)
+    );
+  };
+
+  const removeCourse = (e) => {
+    deleteCourse(props.id).then(() => {
+      fetchCourses()
+        .then((data) => course.setCourseData(data.rows))
+        .catch((err) => console.log(err.response.data.message));
+    });
+    console.log(`Курс с id ${props.id} удалён`);
+    console.log(`Перерисовка страницы где?`);
   };
 
   const copyLink = () => {
@@ -89,25 +99,44 @@ const CourseCard = observer((props) => {
     <Col xs={12} sm={6} lg={4} xxl={3}>
       <Card className="content-card" style={{ backgroundColor: realFone }}>
         <Card.Header className="content-card-header d-flex justify-content-between align-items-center">
-          {user.user.role === "ADMIN" && props.id}) [{props.author}]
+          {user.user.role === "ADMIN" && props.id + ")"} [{props.author}]
           {user.isAuth && (
-            <div className="card__buttons w-100 d-flex justify-content-between">
-              <button className="card__button remove" type="button">
-                <img
-                  src={remove}
-                  alt="remove"
-                  onClick={(e) => removeCourse(e)}
-                />
-              </button>
-              <button
-                className="card__button star added"
-                type="button"
-                onClick={interactCourseToChoise}
-              >
-                <img src={star} alt="add" />
-              </button>
+            <div className="card__buttons w-100 d-flex justify-content-end">
+              {(location.pathname === COURSE_CATALOG_FULL_ROUTE ||
+                location.pathname === CHOISE_COURSES_FULL_ROUTE) && (
+                <>
+                  <button className="card__button remove me-3" type="button">
+                    <img
+                      src={remove}
+                      alt="remove"
+                      onClick={(e) => removeCourse(e)}
+                    />
+                  </button>
+                  <button
+                    className="card__button star added"
+                    type="button"
+                    onClick={interactCourseToChoise}
+                  >
+                    <img src={star} alt="add" />
+                  </button>
+                </>
+              )}
+              {location.pathname === ADMIN_COURSES_FULL_ROUTE && (
+                <>
+                  <button className="card__button me-3" type="button">
+                    <img src={done} alt="done" onClick={(e) => doneCourse(e)} />
+                  </button>
+                  <button
+                    className="card__button star"
+                    type="button"
+                    onClick={(e) => removeCourse(e)}
+                  >
+                    <img src={clear} alt="clear" />
+                  </button>
+                </>
+              )}
 
-              <OverlayTrigger
+              {/* <OverlayTrigger
                 trigger="click"
                 placement="bottom"
                 overlay={
@@ -120,7 +149,7 @@ const CourseCard = observer((props) => {
                         <img src={edit} alt="edit" onClick={getDataToModal} />
                       </button>
                       <AddCourse
-                        show={lgShow}
+                        show={lgShow}s
                         onHide={() => setLgShow(false)}
                         key={dataCourse.id}
                         id={dataCourse.id}
@@ -148,7 +177,7 @@ const CourseCard = observer((props) => {
                 <button className="card__button more" type="button">
                   <img src={more} alt="more" />
                 </button>
-              </OverlayTrigger>
+              </OverlayTrigger> */}
             </div>
           )}
         </Card.Header>

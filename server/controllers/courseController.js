@@ -84,12 +84,20 @@ class CourseController {
         where: { name: author },
       });
 
+      console.log(
+        `courseAuthorFromDB: ${JSON.stringify(courseAuthorFromDB, null, 2)}`
+      );
+
       let occupationFromDB = await Occupation.findOrCreate({
         where: { name: occupation },
       });
 
-      let courseAuthorId = courseAuthorFromDB.id;
-      let occupationId = occupationFromDB.id;
+      console.log(
+        `occupationFromDB: ${JSON.stringify(occupationFromDB, null, 2)}`
+      );
+
+      let courseAuthorId = courseAuthorFromDB[0].id || courseAuthorFromDB.id;
+      let occupationId = occupationFromDB[0].id || occupationFromDB.id;
 
       let course = await Course.create({
         author,
@@ -128,7 +136,7 @@ class CourseController {
 
   async deleteOne(req, res, next) {
     try {
-      const { id } = req.params;
+      const { id } = req.body;
       await Course.findOne({ where: { id } })
         .then(({ image }) => {
           if (!image) {

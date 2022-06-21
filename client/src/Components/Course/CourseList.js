@@ -15,7 +15,7 @@ const CourseList = ({
   const renderCoursePlaceholder = () => {
     let menuItems = [];
     for (var i = 0; i < countPlaceholder; i++) {
-      menuItems.push(<CoursePlaceholderCard />);
+      menuItems.push(<CoursePlaceholderCard key={i} />);
     }
     return <React.Fragment>{menuItems}</React.Fragment>;
   };

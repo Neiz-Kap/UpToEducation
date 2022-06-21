@@ -39,7 +39,9 @@ export const updateCourse = async (updateCourse) => {
 
 // remove course
 export const deleteCourse = async (id) => {
-  const { data } = await $authHost.delete("api/course/", { data: { id } });
+  const { data } = await $authHost.delete("api/course/", {
+    data: { id },
+  });
   return data;
 };
 
