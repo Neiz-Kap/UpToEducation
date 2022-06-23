@@ -42,7 +42,7 @@ const PassInput = () => {
         type={isOpenPassword ? `text` : `password`}
         name="password"
         className="form-style"
-        placeholder="Your Password"
+        placeholder="Ваш Пароль"
         value={password}
         onChange={(e) => onChangePassword(e)}
       />

@@ -34,7 +34,7 @@ const EmailInput = () => {
         type="email"
         name="email"
         className="form-style"
-        placeholder="Your Email"
+        placeholder="Ваш Email"
         value={email}
         onChange={(e) => onChangeEmail(e)}
       />

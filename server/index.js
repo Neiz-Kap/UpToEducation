@@ -11,17 +11,15 @@ const path = require("path");
 const PORT = process.env.PORT || 8888;
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, "static")));
 app.use(fileUpload({}));
 app.use("/api", router);
 
-// обработка ошибок, последний middleware
+// Обработка ошибок, последний Middleware
 app.use(errorHandler);
 
-// req - запрос, res - ответ
 app.get("/", (req, res) => {
   res.status(200).json({ message: "WORKING!!!" });
 });
@@ -29,8 +27,7 @@ app.get("/", (req, res) => {
 const start = async () => {
   try {
     await sequelize.authenticate();
-    // await sequelize.sync({ alter: true }); // синхронизация
-    // await sequelize.drop();
+    // await sequelize.sync({ alter: true });
     app.listen(PORT, () => console.log(`Server started: ${PORT}`));
   } catch (e) {
     console.log(e);

@@ -11,7 +11,7 @@ const Admin = () => {
   const adminPagesTabs = [
     {
       path: ADMIN_COURSES_FULL_ROUTE,
-      title: "Unmoderated Courses",
+      title: "Курсы на модерации",
     },
   ];
   return (

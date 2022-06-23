@@ -13,15 +13,15 @@ const CoursesPage = () => {
   const courseTabs = [
     {
       path: COURSE_CATALOG_FULL_ROUTE,
-      title: "Course Catalog",
+      title: "Каталог Курсов",
     },
     {
       path: CHOISE_COURSES_FULL_ROUTE,
-      title: "Choises Courses",
+      title: "Избранное",
     },
     {
       path: MY_COURSES_FULL_ROUTE,
-      title: "My Added Courses",
+      title: "Мои курсы",
     },
   ];
   return (
