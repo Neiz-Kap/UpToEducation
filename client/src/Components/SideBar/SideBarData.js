@@ -21,7 +21,7 @@ import {
 export const SidebarData = (isAdmin) => [
   {
     id: 1,
-    title: "Course Catalog",
+    title: "Раздел Курсов",
     path: COURSE_ROUTE,
     icon: course,
     isPublic: true,
@@ -48,14 +48,14 @@ export const SidebarData = (isAdmin) => [
   },
   {
     id: 2,
-    title: "Personal Area",
+    title: "Личный кабинет",
     path: ACCOUNT_ROUTE,
     icon: profile,
     isPublic: true,
   },
   {
     id: 3,
-    title: "Info For User",
+    title: "Общая информация",
     path: INFO_ROUTE,
     icon: info,
     isPublic: true,
@@ -84,7 +84,7 @@ export const SidebarData = (isAdmin) => [
   },
   {
     id: 4,
-    title: "Messages | Chat",
+    title: "Сообщения | Чат",
     path: CHAT_ROUTE,
     icon: profile,
     isPublic: false,

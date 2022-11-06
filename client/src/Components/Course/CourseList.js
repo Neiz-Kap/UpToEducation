@@ -1,19 +1,30 @@
 import React from "react";
 import { Row } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
-import AddCourseButton from "./../AddCourse/AddCourseButton";
 
 import { MY_COURSES_FULL_ROUTE } from "./../../Utils/consts";
 import CourseCard from "./CourseCard";
 import CoursePlaceholderCard from "./CoursePlaceholderCard";
 
-const CourseList = ({ list }) => {
-  const location = useLocation();
+const CourseList = ({
+  list,
+  isLoading,
+  children,
+  countPlaceholder = 4,
+  altText,
+}) => {
+  const renderCoursePlaceholder = () => {
+    let menuItems = [];
+    for (var i = 0; i < countPlaceholder; i++) {
+      menuItems.push(<CoursePlaceholderCard key={i} />);
+    }
+    return <React.Fragment>{menuItems}</React.Fragment>;
+  };
+
   return (
     <Row className="content content--sorting-list g-3">
-      {location.pathname === MY_COURSES_FULL_ROUTE && <AddCourseButton />}
-
-      {list ? (
+      {children}
+      {!isLoading &&
+        list &&
         list.map(
           ({
             id,
@@ -27,7 +38,7 @@ const CourseList = ({ list }) => {
             <CourseCard
               key={id}
               id={id}
-              author={course_author.name}
+              author={course_author?.name}
               name={name}
               description={description}
               image={image}
@@ -35,15 +46,9 @@ const CourseList = ({ list }) => {
               fone={fone}
             />
           )
-        )
-      ) : (
-        <>
-          <CoursePlaceholderCard />
-          <CoursePlaceholderCard />
-          <CoursePlaceholderCard />
-          <CoursePlaceholderCard />
-        </>
-      )}
+        )}
+      {!isLoading && list.length === 0 && altText && <p>{altText}</p>}
+      {isLoading && renderCoursePlaceholder()}
     </Row>
   );
 };

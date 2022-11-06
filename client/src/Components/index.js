@@ -6,6 +6,8 @@ import CreateBrand from "./modals/CreateBrand.js";
 import CreateDevice from "./modals/CreateDevice.js";
 import CreateType from "./modals/CreateType.js";
 
+import Loader from "./General/Loader.js";
+
 import Header from "./Header/Header.js";
 import SideBar from "./SideBar/SideBar.js";
 
@@ -36,6 +38,8 @@ export { AddCourseButton };
 export { CreateBrand };
 export { CreateDevice };
 export { CreateType };
+
+export { Loader };
 
 export { Header };
 export { SideBar };

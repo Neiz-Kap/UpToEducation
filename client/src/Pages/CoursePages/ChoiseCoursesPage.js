@@ -1,29 +1,38 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 
-import { Context } from "../../index.js";
+import { useCustomContext } from "./../../Hooks";
 import { fetchChoiseCourses } from "../../HTTP/choiseCoursesAPI";
 
 import { Container, Row } from "react-bootstrap";
-import { CourseList, FilterAside } from "../../Components";
+import { CourseList, CoursePlaceholderCard } from "../../Components";
 
 const ChoiseCoursesPage = observer((props) => {
-  const { course } = useContext(Context);
+  const { course } = useCustomContext();
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    // fetchChoiseCourses().then((data) => {
-    //   course.setChoiseCardData(data);
-    //   setLoading(true);
-    //   console.log(`data: ${data}`);
-    // });
+    fetchChoiseCourses()
+      .then((data) => {
+        course.setChoiseCourseData(data);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 2000);
+      });
   }, []);
-
-  console.log(`course.choiseCardData: ${course.choiseCardData}`);
 
   return (
     <section className="content__section">
       <h2>Избранные курсы из каталога</h2>
-      <CourseList />
-      <FilterAside />
+      <CourseList
+        list={course.choiseCourseData}
+        isLoading={isLoading}
+        countPlaceholder={4}
+        altText={`На данный момент у вас нет избранных курсов!
+        Их можно добавить в Избранное, кликнув по Звёздочке в карточке курса, на странице
+          "Каталога Курсов"`}
+      />
     </section>
   );
 });

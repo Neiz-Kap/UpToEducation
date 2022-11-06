@@ -75,7 +75,7 @@ const AddCourse = ({ show, onHide }) => {
                     className="card-form"
                     type="text"
                     name="author"
-                    placeholder="Enter author"
+                    placeholder="Введите автора"
                     required
                     value={author}
                     onChange={(e) => setAuthor(e.target.value)}
@@ -116,7 +116,7 @@ const AddCourse = ({ show, onHide }) => {
                 <Form.Control
                   className="card-form"
                   type="name"
-                  placeholder="Enter name of course"
+                  placeholder="Введите название курса"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -132,7 +132,7 @@ const AddCourse = ({ show, onHide }) => {
                     className="card-form"
                     type="text"
                     name="url"
-                    placeholder="Enter url"
+                    placeholder="Введите ссылку на материал"
                     required
                     value={urlCourse}
                     onChange={(e) => setUrlCourse(e.target.value)}
@@ -143,7 +143,7 @@ const AddCourse = ({ show, onHide }) => {
                 as="textarea"
                 className="card-form mb-2"
                 name="description"
-                placeholder="Enter description"
+                placeholder="Введите детальное описание"
                 required
                 style={{ minHeight: 120 }}
                 value={description}

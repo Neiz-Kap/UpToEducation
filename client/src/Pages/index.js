@@ -1,45 +1,22 @@
-import ForUserPage from "./ForUserPages/ForUserPage.js";
-import DevelopPage from "./ForUserPages/DevelopPage";
-import FAQPage from "./ForUserPages/FAQPage.js";
-import HelpPage from "./ForUserPages/HelpPage.js";
-import InfoPage from "./ForUserPages/InfoPage.js";
-import SupportPage from "./ForUserPages/SupportPage.js";
+export { default as ForUserPage } from "./ForUserPages/ForUserPage.js";
+export { default as DevelopPage } from "./ForUserPages/DevelopPage";
+export { default as FAQPage } from "./ForUserPages/FAQPage.js";
+export { default as HelpPage } from "./ForUserPages/HelpPage.js";
+export { default as InfoPage } from "./ForUserPages/InfoPage.js";
+export { default as SupportPage } from "./ForUserPages/SupportPage.js";
 
-import CoursesPage from "./CoursePages/CoursesPage.js";
-import CourseCatalogPage from "./CoursePages/CourseCatalogPage.js";
-import CoursePage from "./CoursePages/CoursePage.js";
-import MyCoursesPage from "./CoursePages/MyCoursesPage.js"; // isAuth = trueCoursePages/
-import ChoiseCoursesPage from "./CoursePages/ChoiseCoursesPage.js"; // isAuth = trueCoursePages/
+export { default as CoursesPage } from "./CoursePages/CoursesPage.js";
+export { default as CourseCatalogPage } from "./CoursePages/CourseCatalogPage.js";
+export { default as CoursePage } from "./CoursePages/CoursePage.js";
+export { default as MyCoursesPage } from "./CoursePages/MyCoursesPage.js"; // isAuth = trueCoursePages/
+export { default as ChoiseCoursesPage } from "./CoursePages/ChoiseCoursesPage.js"; // isAuth = trueCoursePages/
 
-import AccountPage from "./AccountPage/AccountPage.js";
-import ChatPage from "./ChatPage/ChatPage.js";
+export { default as AccountPage } from "./AccountPage/AccountPage.js";
+export { default as ChatPage } from "./ChatPage/ChatPage.js";
 
-import AdminPage from "./AdminPages/AdminPage.js";
-import UnmoderCoursesPage from "./AdminPages/UnmoderCoursesPage.js";
+export { default as AdminPage } from "./AdminPages/AdminPage.js";
+export { default as UnmoderCoursesPage } from "./AdminPages/UnmoderCoursesPage.js";
 
-import NotFound from "./ErrorPages/NotFound.js";
-import NotAccess from "./ErrorPages/NotAccess.js";
-import AuthRedirectModal from "./ErrorPages/AuthRedirectModal.js";
-
-export { ForUserPage };
-export { DevelopPage };
-export { FAQPage };
-export { HelpPage };
-export { InfoPage };
-export { SupportPage };
-
-export { CoursesPage };
-export { CourseCatalogPage };
-export { CoursePage };
-export { MyCoursesPage };
-export { ChoiseCoursesPage };
-
-export { ChatPage };
-export { AccountPage };
-
-export { AdminPage };
-export { UnmoderCoursesPage };
-
-export { NotFound };
-export { NotAccess };
-export { AuthRedirectModal };
+export { default as NotFound } from "./ErrorPages/NotFound.js";
+export { default as NotAccess } from "./ErrorPages/NotAccess.js";
+export { default as AuthRedirectModal } from "./ErrorPages/AuthRedirectModal.js";

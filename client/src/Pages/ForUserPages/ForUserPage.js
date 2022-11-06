@@ -13,11 +13,11 @@ const ForUserPage = () => {
   const infoTabs = [
     {
       path: INFO_FULL_ROUTE,
-      title: "Project Info",
+      title: "Информация о проекте",
     },
     {
       path: DEVELOP_FULL_ROUTE,
-      title: "Develop Info",
+      title: "Информация о разработчике",
     },
     {
       path: FAQ_FULL_ROUTE,

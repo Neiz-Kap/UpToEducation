@@ -54,8 +54,8 @@ const Auth = observer((props) => {
             <div className="col-12 text-center align-self-center py-4">
               <div className="section pb-5 pt-5 pt-sm-2 text-center">
                 <h6 className="mb-0 pb-3">
-                  <span>Log In </span>
-                  <span>Sign Up</span>
+                  <span>Авторизация</span>
+                  <span>Регистрация</span>
                 </h6>
                 <input
                   className="checkbox"
@@ -69,28 +69,28 @@ const Auth = observer((props) => {
                   <div className="card-3d-wrapper">
                     <div className="card-front">
                       <div className="center-wrap">
-                        <h4 className="mb-4 pb-3">Log In</h4>
+                        <h4 className="mb-4 pb-3">Авторизация</h4>
                         <Form>
                           <EmailInput />
                           <PassInput />
                           <Button className="btn mt-4" onClick={click}>
-                            Log
+                            Авторизоваться
                           </Button>
-                          <p className="mb-0 mt-4 text-center">
+                          {/* <p className="mb-0 mt-4 text-center">
                             <a href="#0" className="link">
                               Forgot your password?
                             </a>
-                          </p>
+                          </p> */}
                         </Form>
                       </div>
                     </div>
                     <div className="card-back">
                       <div className="center-wrap">
-                        <h4 className="mb-4 pb-3">Sign Up</h4>
+                        <h4 className="mb-4 pb-3">Регистрация</h4>
                         <EmailInput />
                         <PassInput />
                         <Button className="btn mt-4" onClick={click}>
-                          Sign
+                          Создать аккаунт
                         </Button>
                       </div>
                     </div>
