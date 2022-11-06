@@ -1,3 +1,5 @@
+import { lazy } from "react";
+
 import {
   // ---- Courses Routes ------
   COURSE_CATALOG_ROUTE,
@@ -22,31 +24,38 @@ import {
 } from "./Utils/consts.js";
 
 import { Navigate } from "react-router-dom";
-import {
-  NotFound,
-  NotAccess,
-  AuthRedirectModal,
-  // --- Pages ---
-  // Info Pages
-  ForUserPage,
-  InfoPage,
-  DevelopPage,
-  FAQPage,
-  HelpPage,
-  SupportPage,
-  // Courses Pages
-  CoursesPage,
-  CourseCatalogPage,
-  CoursePage,
-  MyCoursesPage,
-  ChoiseCoursesPage,
-  // Auth Pages
-  AccountPage,
-  ChatPage,
-  // Admin Pages
-  AdminPage,
-  UnmoderCoursesPage,
-} from "./Pages";
+
+const customLazy = (component) => {
+  return lazy(() =>
+    import(`./Pages/index.js`).then((module) => ({
+      default: module[component],
+    }))
+  );
+};
+
+const NotFound = customLazy("NotFound");
+const NotAccess = customLazy("NotAccess");
+const AuthRedirectModal = customLazy("AuthRedirectModal");
+// --- Pages --
+// Info Page
+const ForUserPage = customLazy("ForUserPage");
+const InfoPage = customLazy("InfoPage");
+const DevelopPage = customLazy("DevelopPage");
+const FAQPage = customLazy("FAQPage");
+const HelpPage = customLazy("HelpPage");
+const SupportPage = customLazy("SupportPage");
+// Courses Page
+const CoursesPage = customLazy("CoursesPage");
+const CourseCatalogPage = customLazy("CourseCatalogPage");
+const CoursePage = customLazy("CoursePage");
+const MyCoursesPage = customLazy("MyCoursesPage");
+const ChoiseCoursesPage = customLazy("ChoiseCoursesPage");
+// Auth Page
+const AccountPage = customLazy("AccountPage");
+const ChatPage = customLazy("ChatPage");
+// Admin Page
+const AdminPage = customLazy("AdminPage");
+const UnmoderCoursesPage = customLazy("UnmoderCoursesPage");
 
 export const routes = (isAuth, isAdmin) => {
   const pages = [

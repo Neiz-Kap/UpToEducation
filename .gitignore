@@ -3,6 +3,7 @@
 /client/.pnp
 /client/.pnp.js
 
+/client/build
 
 /coverage
 
